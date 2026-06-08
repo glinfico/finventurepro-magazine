@@ -33,6 +33,7 @@ export default function GlinficoFooter() {
                 { label: "Dashboard", to: "/dashboard" },
                 { label: "Role Portal", to: "/portal" },
                 { label: "Submit a Deal", to: "/submit" },
+                { label: "FVP Magazine", to: "/magazine" },
               ].map(({ label, to }) => (
                 <li key={label}>
                   <Link to={to} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{label}</Link>

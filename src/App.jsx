@@ -24,6 +24,9 @@ import GlinficoDealRoom from '@/pages/GlinficoDealRoom';
 
 // FinVenturePro Magazine
 import Home from '@/pages/Home';
+import MagazineHome from '@/pages/MagazineHome';
+import MagazineArticle from '@/pages/MagazineArticle';
+import MagazineArchive from '@/pages/MagazineArchive';
 
 const AuthenticatedApp = () => {
   return (
@@ -45,7 +48,9 @@ const AuthenticatedApp = () => {
       </Route>
 
       {/* FinVenturePro Magazine */}
-      <Route path="/magazine" element={<Home />} />
+      <Route path="/magazine" element={<MagazineHome />} />
+      <Route path="/magazine/archive" element={<MagazineArchive />} />
+      <Route path="/magazine/article/:slug" element={<MagazineArticle />} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
