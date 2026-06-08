@@ -40,7 +40,7 @@ export default function MagazineFooter() {
           <div>
             <p className="mb-4 text-xs font-bold uppercase tracking-widest text-blue-400/70">Platform</p>
             <ul className="space-y-2">
-              <li><Link to="/" className="text-sm text-slate-500 hover:text-white transition-colors">GLINFICO FOD</Link></li>
+              <li><Link to="/fod" className="text-sm text-slate-500 hover:text-white transition-colors">GLINFICO FOD</Link></li>
               <li><Link to="/submit" className="text-sm text-slate-500 hover:text-white transition-colors">Submit a Deal</Link></li>
               <li><Link to="/dashboard" className="text-sm text-slate-500 hover:text-white transition-colors">Dashboard</Link></li>
               <li><a href="mailto:contact@glinfico.com" className="text-sm text-slate-500 hover:text-blue-400 transition-colors">contact@glinfico.com</a></li>

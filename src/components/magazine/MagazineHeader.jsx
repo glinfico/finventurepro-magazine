@@ -63,7 +63,7 @@ export default function MagazineHeader() {
               <Search className="h-4 w-4" />
             </button>
           )}
-          <Link to="/" className="text-xs text-slate-500 hover:text-slate-300 transition-colors px-2">← GLINFICO FOD</Link>
+          <Link to="/fod" className="text-xs text-slate-500 hover:text-slate-300 transition-colors px-2">← GLINFICO FOD</Link>
           <Button asChild className="rounded-full px-5 h-9 text-sm bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20">
             <a href="#subscribe">Subscribe Free</a>
           </Button>

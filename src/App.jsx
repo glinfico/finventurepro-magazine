@@ -33,7 +33,7 @@ const AuthenticatedApp = () => {
     <Routes>
       {/* GLINFICO FOD Platform */}
       <Route element={<GlinficoLayout />}>
-        <Route path="/" element={<GlinficoHome />} />
+        <Route path="/fod" element={<GlinficoHome />} />
         <Route path="/platform" element={<GlinficoPlatform />} />
         <Route path="/solutions" element={<GlinficoSolutions />} />
         <Route path="/products" element={<GlinficoProducts />} />
@@ -48,6 +48,7 @@ const AuthenticatedApp = () => {
       </Route>
 
       {/* FinVenturePro Magazine */}
+      <Route path="/" element={<MagazineHome />} />
       <Route path="/magazine" element={<MagazineHome />} />
       <Route path="/magazine/archive" element={<MagazineArchive />} />
       <Route path="/magazine/article/:slug" element={<MagazineArticle />} />
