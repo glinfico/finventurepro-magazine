@@ -1,0 +1,58 @@
+{
+  "name": "Article",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "section": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "markets",
+        "venture",
+        "wealth",
+        "funding",
+        "real-estate"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "intro": {
+      "type": "string"
+    },
+    "body_json": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "read_time": {
+      "type": "string"
+    },
+    "published_date": {
+      "type": "string"
+    },
+    "is_published": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "section",
+    "category"
+  ]
+}

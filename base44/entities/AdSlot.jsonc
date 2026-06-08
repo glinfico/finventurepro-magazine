@@ -1,0 +1,52 @@
+{
+  "name": "AdSlot",
+  "type": "object",
+  "properties": {
+    "slot_name": {
+      "type": "string"
+    },
+    "position": {
+      "type": "string",
+      "enum": [
+        "hero",
+        "sidebar",
+        "mid-article",
+        "footer-banner",
+        "newsletter"
+      ]
+    },
+    "price_monthly": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "is_available": {
+      "type": "boolean",
+      "default": true
+    },
+    "advertiser_name": {
+      "type": "string"
+    },
+    "advertiser_email": {
+      "type": "string"
+    },
+    "ad_image_url": {
+      "type": "string"
+    },
+    "ad_link": {
+      "type": "string"
+    },
+    "ad_headline": {
+      "type": "string"
+    },
+    "ad_copy": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "slot_name",
+    "position",
+    "price_monthly"
+  ]
+}
