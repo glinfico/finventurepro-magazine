@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
 import MagazineHeader from "@/components/magazine/MagazineHeader";
 import MagazineFooter from "@/components/magazine/MagazineFooter";
 import SubscribePanel from "@/components/magazine/SubscribePanel";
-import { ArrowLeft, Clock, BookOpen, Share2, BarChart3, Briefcase, Globe2, TrendingUp, Landmark, DollarSign } from "lucide-react";
+import { ArrowLeft, Clock, BookOpen, Share2, BarChart3, Briefcase, Globe2, TrendingUp, Landmark, DollarSign, ShieldCheck, Plane, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 const articles = {
@@ -185,11 +186,47 @@ const categoryColors = {
   wealth: "bg-green-500/20 text-green-300 border border-green-500/30",
 };
 
+const categoryIcon = { finance: DollarSign, economy: BarChart3, insurance: ShieldCheck, travel: Plane, consulting: Briefcase, markets: BarChart3, venture: Briefcase, wealth: Globe2, funding: DollarSign, "real-estate": TrendingUp };
+
 export default function MagazineArticle() {
   const { slug } = useParams();
-  const article = articles[slug];
+  const [dbArticle, setDbArticle] = React.useState(null);
+  const [dbLoading, setDbLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    // Try to load from DB first (AI-generated articles use ID as slug)
+    base44.entities.Article.filter({ slug, is_published: true }, "-published_date", 1)
+      .then(data => { if (data && data.length > 0) setDbArticle(data[0]); setDbLoading(false); })
+      .catch(() => setDbLoading(false));
+  }, [slug]);
+
+  const article = dbArticle ? {
+    slug: dbArticle.slug,
+    section: dbArticle.section,
+    category: dbArticle.category,
+    icon: categoryIcon[dbArticle.category] || BarChart3,
+    title: dbArticle.title,
+    subtitle: dbArticle.subtitle,
+    readTime: dbArticle.read_time,
+    date: dbArticle.published_date,
+    author: dbArticle.author,
+    tags: dbArticle.tags || [],
+    intro: dbArticle.intro,
+    body: (() => { try { return JSON.parse(dbArticle.body_json || "[]"); } catch { return []; } })(),
+  } : articles[slug];
 
   const otherArticles = Object.values(articles).filter(a => a.slug !== slug).slice(0, 3);
+
+  if (dbLoading) {
+    return (
+      <main className="min-h-screen bg-background text-foreground">
+        <MagazineHeader />
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary/30 border-t-primary" />
+        </div>
+      </main>
+    );
+  }
 
   if (!article) {
     return (
@@ -198,7 +235,7 @@ export default function MagazineArticle() {
         <div className="flex min-h-screen items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl font-bold">Article not found</h1>
-            <Link to="/magazine" className="mt-6 inline-block text-primary hover:underline">← Back to Magazine</Link>
+            <Link to="/magazine" className="mt-6 inline-block text-primary hover:underline">Back to Magazine</Link>
           </div>
         </div>
         <MagazineFooter />
@@ -206,13 +243,27 @@ export default function MagazineArticle() {
     );
   }
 
-  const Icon = article.icon;
+  const Icon = article.icon || categoryIcon[article.category] || BarChart3;
 
   return (
     <main className="min-h-screen bg-background text-foreground">
       <MagazineHeader />
 
-      <article className="px-5 pt-32 pb-20 lg:px-8">
+      {/* FOD sticky banner */}
+      <div className="fixed bottom-0 inset-x-0 z-40 bg-primary/95 backdrop-blur border-t border-white/10 py-2.5 px-5">
+        <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
+          <p className="text-sm font-semibold text-primary-foreground hidden sm:block">
+            Need capital? GLINFICO Financial Operations Division — fast access to MCA, real estate, and M&amp;A funding.
+          </p>
+          <p className="text-sm font-semibold text-primary-foreground sm:hidden">GLINFICO FOD — Fast capital access.</p>
+          <a href="https://fod.glinfico.com" target="_blank" rel="noopener noreferrer"
+            className="shrink-0 flex items-center gap-1.5 rounded-full bg-primary-foreground px-4 py-1.5 text-xs font-bold text-primary hover:opacity-90 transition-opacity">
+            fod.glinfico.com <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
+      </div>
+
+      <article className="px-5 pt-32 pb-28 lg:px-8">
         <div className="mx-auto max-w-4xl">
 
           {/* Back */}

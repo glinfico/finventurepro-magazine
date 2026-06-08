@@ -1,46 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Clock, DollarSign, TrendingUp, BarChart3, Globe2, Briefcase, Zap } from "lucide-react";
+import { Clock, DollarSign, BarChart3, ShieldCheck, Plane, Briefcase, Zap } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
 const categoryIcon = {
+  finance:    DollarSign,
+  economy:    BarChart3,
+  insurance:  ShieldCheck,
+  travel:     Plane,
+  consulting: Briefcase,
   markets: BarChart3,
   venture: Briefcase,
-  wealth: Globe2,
+  wealth: DollarSign,
   funding: DollarSign,
-  "real-estate": TrendingUp,
+  "real-estate": BarChart3,
 };
 
-// Fallback static articles if no DB articles exist yet
 const FALLBACK = [
-  {
-    slug: "mca-market-2026",
-    section: "Funding Intelligence",
-    category: "funding",
-    title: "MCA Market in 2026: Speed Is No Longer the Only Edge",
-    intro: "How the merchant cash advance industry is evolving beyond 24-hour approvals into data-driven underwriting.",
-    read_time: "7 min",
-    published_date: "2026-06-08",
-  },
-  {
-    slug: "real-estate-bridge-lending",
-    section: "Real Estate Capital",
-    category: "real-estate",
-    title: "Bridge Lending in a Rate Plateau",
-    intro: "Why the current rate environment is creating asymmetric entry points in commercial bridge finance.",
-    read_time: "10 min",
-    published_date: "2026-06-08",
-  },
-  {
-    slug: "family-office-coinvestment",
-    section: "Wealth",
-    category: "wealth",
-    title: "Family Offices Go Direct",
-    intro: "Multi-generational wealth holders are cutting out the middleman — and learning fast.",
-    read_time: "9 min",
-    published_date: "2026-06-08",
-  },
+  { slug: "personal-finance-101", section: "Finance", category: "finance", title: "Building Wealth on Any Income: The Framework That Actually Works", intro: "Five principles that separate those who accumulate from those who don't, regardless of salary.", read_time: "9 min", published_date: "2026-06-08" },
+  { slug: "inflation-decoded", section: "Economy", category: "economy", title: "Inflation Decoded: What the Numbers Never Tell You", intro: "Why headline CPI misses the picture most consumers and investors actually live in.", read_time: "7 min", published_date: "2026-06-08" },
+  { slug: "insurance-gaps", section: "Insurance", category: "insurance", title: "The Insurance Gaps That Could Ruin Your Business Overnight", intro: "Most SMBs carry inadequate coverage in exactly the three areas most likely to cause catastrophic loss.", read_time: "8 min", published_date: "2026-06-08" },
+  { slug: "business-travel-reimagined", section: "Travel", category: "travel", title: "Business Travel in 2026: How to Spend Less and Arrive Better", intro: "Points optimization, premium cabin access, and the new rules of corporate travel policy.", read_time: "6 min", published_date: "2026-06-08" },
+  { slug: "consulting-growth", section: "Business Consulting", category: "consulting", title: "The Five-Question Framework Every Business Owner Needs Before Scaling", intro: "Before you hire, expand, or raise capital, answer these. Your growth trajectory depends on it.", read_time: "11 min", published_date: "2026-06-08" },
+  { slug: "credit-economy-2026", section: "Economy", category: "economy", title: "The Credit Cycle Is Turning: What It Means for Your Portfolio", intro: "Rising spreads, tightening conditions, and what history says about the next 18 months.", read_time: "10 min", published_date: "2026-06-08" },
 ];
 
 export default function MagazineLatestGrid() {

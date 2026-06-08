@@ -1,17 +1,55 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import MagazineLogo from "@/components/magazine/MagazineLogo";
 
 export default function MagazineFooter() {
   return (
-    <footer className="border-t border-border px-5 py-10 lg:px-8">
-      <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 text-sm text-muted-foreground md:flex-row md:items-center">
-        <div>
-          <div className="font-display text-lg tracking-[0.22em] text-foreground">FINVENTUREPRO</div>
-          <p className="mt-2">Independent intelligence for venture, markets, and modern wealth.</p>
+    <footer className="border-t border-border px-5 py-12 lg:px-8 mb-14">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 mb-10">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <MagazineLogo size="sm" />
+            <p className="mt-4 text-sm text-muted-foreground leading-6">Independent editorial intelligence covering Finance, Economy, Insurance, Travel, and Business Consulting. Free to all readers.</p>
+            <a href="https://fod.glinfico.com" target="_blank" rel="noopener noreferrer"
+              className="mt-4 inline-block text-xs font-semibold text-primary hover:underline">
+              GLINFICO Financial Operations Division →
+            </a>
+          </div>
+          <div>
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary">Sections</p>
+            <ul className="space-y-2">
+              {["finance", "economy", "insurance", "travel", "consulting"].map(cat => (
+                <li key={cat}>
+                  <Link to={`/magazine/archive?cat=${cat}`} className="text-sm text-muted-foreground hover:text-foreground capitalize transition-colors">
+                    {cat === "consulting" ? "Business Consulting" : cat.charAt(0).toUpperCase() + cat.slice(1)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary">Magazine</p>
+            <ul className="space-y-2">
+              <li><Link to="/magazine" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Home</Link></li>
+              <li><Link to="/magazine/archive" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Archive</Link></li>
+              <li><a href="#subscribe" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Subscribe</a></li>
+              <li><a href="#consulting" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Business Consulting AI</a></li>
+              <li><a href="#ads" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Advertise</a></li>
+            </ul>
+          </div>
+          <div>
+            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary">Platform</p>
+            <ul className="space-y-2">
+              <li><Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">GLINFICO FOD</Link></li>
+              <li><Link to="/submit" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Submit a Deal</Link></li>
+              <li><Link to="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Dashboard</Link></li>
+              <li><a href="mailto:contact@glinfico.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">contact@glinfico.com</a></li>
+            </ul>
+          </div>
         </div>
-        <div className="flex gap-5">
-          <a href="#markets" className="hover:text-foreground">Markets</a>
-          <a href="#venture" className="hover:text-foreground">Venture</a>
-          <a href="#subscribe" className="hover:text-foreground">Subscribe</a>
+        <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+          <span>© 2026 FinVenturePro · A GLINFICO Publication · All rights reserved.</span>
+          <span>Free to read. Always.</span>
         </div>
       </div>
     </footer>

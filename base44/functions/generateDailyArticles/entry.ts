@@ -1,11 +1,11 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.31';
 
 const TOPICS = [
-  { section: "Markets", category: "markets", tags: ["Macro", "Capital Markets", "Rates"] },
-  { section: "Venture", category: "venture", tags: ["Venture Capital", "Startups", "Fund Strategy"] },
-  { section: "Funding Intelligence", category: "funding", tags: ["MCA", "Alternative Lending", "Fintech"] },
-  { section: "Real Estate Capital", category: "real-estate", tags: ["Commercial RE", "Bridge Lending", "DSCR"] },
-  { section: "Wealth", category: "wealth", tags: ["Family Office", "Private Equity", "Allocation"] },
+  { section: "Finance", category: "finance", tags: ["Personal Finance", "Investing", "Wealth Building", "Financial Planning"] },
+  { section: "Economy", category: "economy", tags: ["Macroeconomics", "Inflation", "GDP", "Global Markets", "Policy"] },
+  { section: "Insurance", category: "insurance", tags: ["Life Insurance", "Risk Management", "Commercial Insurance", "Underwriting"] },
+  { section: "Travel", category: "travel", tags: ["Business Travel", "Luxury Travel", "Travel Finance", "Points & Miles"] },
+  { section: "Business Consulting", category: "consulting", tags: ["Strategy", "Operations", "Growth", "Entrepreneurship", "M&A"] },
 ];
 
 Deno.serve(async (req) => {

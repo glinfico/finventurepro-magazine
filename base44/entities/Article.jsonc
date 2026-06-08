@@ -17,11 +17,11 @@
     "category": {
       "type": "string",
       "enum": [
-        "markets",
-        "venture",
-        "wealth",
-        "funding",
-        "real-estate"
+        "finance",
+        "economy",
+        "insurance",
+        "travel",
+        "consulting"
       ]
     },
     "tags": {
