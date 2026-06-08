@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MagazineLogo from "@/components/magazine/MagazineLogo";
+import NewsTicker from "@/components/magazine/NewsTicker";
 
 const links = [
   { label: "Finance", to: "/magazine/archive?cat=finance" },
@@ -31,6 +32,7 @@ export default function MagazineHeader() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur-xl">
+      <NewsTicker />
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 lg:px-8">
         <Link to="/magazine"><MagazineLogo size="sm" /></Link>
 

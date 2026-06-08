@@ -95,7 +95,7 @@ export default function MagazineArchive() {
         </div>
       </div>
 
-      <div className="px-5 pt-32 pb-28 lg:px-8">
+      <div className="px-5 pt-40 pb-28 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
             <p className="text-sm uppercase tracking-[0.32em] text-muted-foreground mb-3">FinVenturePro Archive</p>
