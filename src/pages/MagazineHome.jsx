@@ -8,7 +8,8 @@ import MagazineLatestGrid from "@/components/magazine/MagazineLatestGrid";
 import MagazineEditorNote from "@/components/magazine/MagazineEditorNote";
 import MagazineConsulting from "@/components/magazine/MagazineConsulting";
 import MagazineAds from "@/components/magazine/MagazineAds";
-import SubscribePanel from "@/components/magazine/SubscribePanel";
+import MagazineSubscribe from "@/components/magazine/MagazineSubscribe";
+import ArticlesFeed from "@/components/magazine/ArticlesFeed";
 import MagazineFooter from "@/components/magazine/MagazineFooter";
 
 export default function MagazineHome() {
@@ -33,10 +34,11 @@ export default function MagazineHome() {
       <IssueHighlights />
       <MarketSignal />
       <MagazineLatestGrid />
+      <ArticlesFeed />
       <MagazineEditorNote />
       <MagazineConsulting />
       <MagazineAds />
-      <SubscribePanel />
+      <MagazineSubscribe />
       <MagazineFooter />
     </main>
   );

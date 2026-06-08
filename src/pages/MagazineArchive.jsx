@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import MagazineHeader from "@/components/magazine/MagazineHeader";
 import MagazineFooter from "@/components/magazine/MagazineFooter";
-import SubscribePanel from "@/components/magazine/SubscribePanel";
 import { Clock, Search, BarChart3, ShieldCheck, Plane, Briefcase, DollarSign, X, Globe, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { base44 } from "@/api/base44Client";
@@ -14,6 +13,8 @@ const EDITORIAL = [
   { slug: "business-travel-reimagined", section: "Travel", category: "travel", title: "Business Travel in 2026: How to Spend Less and Arrive Better", subtitle: "Points optimization, premium cabin access, and the new rules of corporate travel policy.", read_time: "6 min", published_date: "2026-06-04" },
   { slug: "consulting-growth", section: "Business Consulting", category: "consulting", title: "The Five-Question Framework Every Business Owner Needs Before Scaling", subtitle: "Before you hire, expand, or raise capital, answer these. Your growth trajectory depends on it.", read_time: "11 min", published_date: "2026-06-05" },
   { slug: "credit-economy-2026", section: "Economy", category: "economy", title: "The Credit Cycle Is Turning: What It Means for Your Portfolio", subtitle: "Rising spreads, tightening conditions, and what history says about the next 18 months.", read_time: "10 min", published_date: "2026-06-06" },
+  { slug: "retirement-planning-2026", section: "Retirement", category: "retirement", title: "Retirement Planning in Uncertain Markets: A 2026 Guide", subtitle: "How to build a resilient retirement portfolio when everything seems volatile.", read_time: "10 min", published_date: "2026-06-07" },
+  { slug: "401k-maximization", section: "Retirement", category: "retirement", title: "Maxing Your 401(k) in 2026: New Limits, New Strategies", subtitle: "Contribution limits changed again — here is how to take full advantage at every income level.", read_time: "8 min", published_date: "2026-06-08" },
 ];
 
 const categoryMeta = {
@@ -22,9 +23,10 @@ const categoryMeta = {
   insurance:  { label: "Insurance",           icon: ShieldCheck, color: "bg-violet-500/20 text-violet-300 border-violet-500/30" },
   travel:     { label: "Travel",              icon: Plane,       color: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
   consulting: { label: "Business Consulting", icon: Briefcase,   color: "bg-rose-500/20 text-rose-300 border-rose-500/30" },
+  retirement: { label: "Retirement",          icon: Briefcase,   color: "bg-teal-500/20 text-teal-300 border-teal-500/30" },
 };
 
-const CATS = ["All", "finance", "economy", "insurance", "travel", "consulting"];
+const CATS = ["All", "finance", "economy", "insurance", "travel", "consulting", "retirement"];
 
 export default function MagazineArchive() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -98,7 +100,7 @@ export default function MagazineArchive() {
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
             <p className="text-sm uppercase tracking-[0.32em] text-muted-foreground mb-3">FinVenturePro Archive</p>
             <h1 className="font-display text-5xl tracking-[-0.05em] sm:text-6xl">Every Article.</h1>
-            <p className="mt-4 max-w-2xl text-lg text-muted-foreground">Browse all editorial content across Finance, Economy, Insurance, Travel, and Business Consulting.</p>
+            <p className="mt-4 max-w-2xl text-lg text-muted-foreground">Browse all editorial content across Finance, Economy, Insurance, Travel, Business Consulting, and Retirement.</p>
           </motion.div>
 
           {/* Search */}
@@ -176,7 +178,6 @@ export default function MagazineArchive() {
         </div>
       </div>
 
-      <SubscribePanel />
       <MagazineFooter />
     </main>
   );

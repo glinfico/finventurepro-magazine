@@ -10,6 +10,7 @@ const links = [
   { label: "Insurance", to: "/magazine/archive?cat=insurance" },
   { label: "Travel", to: "/magazine/archive?cat=travel" },
   { label: "Consulting", to: "/magazine/archive?cat=consulting" },
+  { label: "Retirement", to: "/magazine/archive?cat=retirement" },
   { label: "Archive", to: "/magazine/archive" },
 ];
 

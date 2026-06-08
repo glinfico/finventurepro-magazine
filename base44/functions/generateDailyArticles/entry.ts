@@ -6,6 +6,7 @@ const TOPICS = [
   { section: "Insurance", category: "insurance", tags: ["Life Insurance", "Risk Management", "Commercial Insurance", "Underwriting"] },
   { section: "Travel", category: "travel", tags: ["Business Travel", "Luxury Travel", "Travel Finance", "Points & Miles"] },
   { section: "Business Consulting", category: "consulting", tags: ["Strategy", "Operations", "Growth", "Entrepreneurship", "M&A"] },
+  { section: "Retirement", category: "retirement", tags: ["Retirement Planning", "401k", "IRA", "Social Security", "Pension", "Passive Income"] },
 ];
 
 Deno.serve(async (req) => {

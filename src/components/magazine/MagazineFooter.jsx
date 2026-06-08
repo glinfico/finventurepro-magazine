@@ -18,7 +18,7 @@ export default function MagazineFooter() {
           <div>
             <p className="mb-4 text-xs font-bold uppercase tracking-widest text-primary">Sections</p>
             <ul className="space-y-2">
-              {["finance", "economy", "insurance", "travel", "consulting"].map(cat => (
+              {["finance", "economy", "insurance", "travel", "consulting", "retirement"].map(cat => (
                 <li key={cat}>
                   <Link to={`/magazine/archive?cat=${cat}`} className="text-sm text-muted-foreground hover:text-foreground capitalize transition-colors">
                     {cat === "consulting" ? "Business Consulting" : cat.charAt(0).toUpperCase() + cat.slice(1)}
