@@ -37,6 +37,14 @@
     "body_json": {
       "type": "string"
     },
+    "image_url": {
+      "type": "string",
+      "description": "Hero image URL for the article"
+    },
+    "video_url": {
+      "type": "string",
+      "description": "YouTube or video URL to embed in the article"
+    },
     "author": {
       "type": "string"
     },
