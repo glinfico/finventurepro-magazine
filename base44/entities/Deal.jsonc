@@ -14,6 +14,9 @@
     "phone": {
       "type": "string"
     },
+    "industry": {
+      "type": "string"
+    },
     "deal_type": {
       "type": "string",
       "enum": [
@@ -29,7 +32,13 @@
     "business_description": {
       "type": "string"
     },
+    "use_of_funds": {
+      "type": "string"
+    },
     "monthly_revenue": {
+      "type": "number"
+    },
+    "existing_debt": {
       "type": "number"
     },
     "time_in_business": {

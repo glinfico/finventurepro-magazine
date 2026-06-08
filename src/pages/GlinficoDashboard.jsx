@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
-import { BarChart3, FileText, Users, TrendingUp, Plus, ArrowRight } from "lucide-react";
+import { BarChart3, FileText, Users, TrendingUp, Plus, ArrowRight, LogOut, Shield } from "lucide-react";
 
 const statusColors = {
   Submitted: "bg-blue-500/20 text-blue-300 border border-blue-500/30",
@@ -15,14 +15,20 @@ export default function GlinficoDashboard() {
   const [deals, setDeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    Promise.all([
-      base44.auth.me().catch(() => null),
-      base44.entities.Deal.list("-created_date", 20),
-    ]).then(([u, d]) => {
+    base44.auth.me().catch(() => null).then(async (u) => {
+      if (!u) {
+        navigate("/portal");
+        return;
+      }
       setUser(u);
-      setDeals(d);
+      // Admin sees all deals; regular users see only their own
+      const dealData = u.role === "admin"
+        ? await base44.entities.Deal.list("-created_date", 100)
+        : await base44.entities.Deal.filter({ created_by_id: u.id }, "-created_date", 50);
+      setDeals(dealData);
       setLoading(false);
     });
   }, []);
@@ -35,6 +41,8 @@ export default function GlinficoDashboard() {
     totalValue: deals.reduce((s, d) => s + (d.amount_requested || 0), 0),
   };
 
+  const isAdmin = user?.role === "admin";
+
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -46,17 +54,35 @@ export default function GlinficoDashboard() {
   return (
     <div className="px-5 py-24 lg:px-8">
       <div className="mx-auto max-w-7xl">
+
         {/* Header */}
         <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-black text-white">
-              {user ? `Welcome, ${user.full_name?.split(" ")[0]}` : "Dashboard"}
-            </h1>
-            <p className="mt-1 text-muted-foreground">GLINFICO Financial Operations Dashboard</p>
+            <div className="flex items-center gap-3 mb-1">
+              <h1 className="text-4xl font-black text-white">
+                Welcome, {user?.full_name?.split(" ")[0]}
+              </h1>
+              {isAdmin && (
+                <span className="flex items-center gap-1 rounded-full bg-primary/20 border border-primary/40 px-3 py-1 text-xs font-bold text-primary">
+                  <Shield className="h-3 w-3" /> ADMIN
+                </span>
+              )}
+            </div>
+            <p className="text-muted-foreground">
+              {isAdmin ? "Full platform view — all deals visible" : "Your personal deal pipeline"}
+            </p>
           </div>
-          <Link to="/submit" className="flex items-center gap-2 rounded-lg bg-primary px-4 py-3 font-bold text-primary-foreground hover:bg-primary/80 transition-all">
-            <Plus className="h-4 w-4" /> Submit New Deal
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link to="/submit" className="flex items-center gap-2 rounded-lg bg-primary px-4 py-3 font-bold text-primary-foreground hover:bg-primary/80 transition-all">
+              <Plus className="h-4 w-4" /> Submit New Deal
+            </Link>
+            <button
+              onClick={() => base44.auth.logout("/portal")}
+              className="flex items-center gap-2 rounded-lg border border-white/20 px-4 py-3 text-sm font-semibold text-muted-foreground hover:border-white/40 hover:text-foreground transition-all"
+            >
+              <LogOut className="h-4 w-4" /> Sign Out
+            </button>
+          </div>
         </div>
 
         {/* Stats */}
@@ -65,7 +91,7 @@ export default function GlinficoDashboard() {
             { icon: FileText, label: "Total Deals", value: stats.total, color: "text-blue-400" },
             { icon: TrendingUp, label: "Approved", value: stats.approved, color: "text-green-400" },
             { icon: BarChart3, label: "Funded", value: stats.funded, color: "text-primary" },
-            { icon: Users, label: "Total Pipeline Value", value: `$${stats.totalValue.toLocaleString()}`, color: "text-purple-400" },
+            { icon: Users, label: "Pipeline Value", value: `$${stats.totalValue.toLocaleString()}`, color: "text-purple-400" },
           ].map((stat) => {
             const Icon = stat.icon;
             return (
@@ -81,10 +107,10 @@ export default function GlinficoDashboard() {
         {/* Quick links */}
         <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { title: "AI Matching Engine", desc: "Match deals to lenders instantly", href: "/deal-room" },
-            { title: "Deal Pipeline", desc: "Track all active deals", href: "/deal-room" },
+            { title: "Deal Room", desc: "Collaborate on active deals", href: "/deal-room" },
             { title: "Submit a Deal", desc: "Start a new deal application", href: "/submit" },
             { title: "Book a Demo", desc: "Get a personalised walkthrough", href: "/demo" },
+            ...(isAdmin ? [{ title: "Contact Messages", desc: "View inbound enquiries", href: "/contact" }] : []),
           ].map((item) => (
             <Link key={item.title} to={item.href} className="group flex items-center justify-between rounded-xl border border-white/10 bg-card p-5 hover:border-primary/40 transition-all">
               <div>
@@ -96,11 +122,13 @@ export default function GlinficoDashboard() {
           ))}
         </div>
 
-        {/* Recent deals */}
+        {/* Deals table */}
         <div className="rounded-xl border border-white/10 bg-card overflow-hidden">
           <div className="border-b border-white/10 px-6 py-4 flex items-center justify-between">
-            <h2 className="font-bold text-white">Recent Deals</h2>
-            <Link to="/deal-room" className="text-xs font-semibold text-primary hover:underline">View All →</Link>
+            <h2 className="font-bold text-white">
+              {isAdmin ? "All Deals" : "My Deals"}
+            </h2>
+            <Link to="/deal-room" className="text-xs font-semibold text-primary hover:underline">Open Deal Room →</Link>
           </div>
 
           {deals.length === 0 ? (
@@ -116,16 +144,19 @@ export default function GlinficoDashboard() {
                 <thead>
                   <tr className="border-b border-white/10">
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">Applicant</th>
+                    {isAdmin && <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">Company</th>}
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">Deal Type</th>
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">Amount</th>
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">Status</th>
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">Date</th>
+                    <th className="px-6 py-3"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {deals.slice(0, 10).map(deal => (
+                  {deals.map(deal => (
                     <tr key={deal.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                       <td className="px-6 py-4 font-medium text-white">{deal.applicant_name}</td>
+                      {isAdmin && <td className="px-6 py-4 text-muted-foreground">{deal.company_name || "—"}</td>}
                       <td className="px-6 py-4 text-muted-foreground">{deal.deal_type}</td>
                       <td className="px-6 py-4 font-semibold text-primary">${deal.amount_requested?.toLocaleString()}</td>
                       <td className="px-6 py-4">
@@ -134,6 +165,9 @@ export default function GlinficoDashboard() {
                         </span>
                       </td>
                       <td className="px-6 py-4 text-muted-foreground">{new Date(deal.created_date).toLocaleDateString()}</td>
+                      <td className="px-6 py-4">
+                        <Link to="/deal-room" className="text-xs font-semibold text-primary hover:underline">View →</Link>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

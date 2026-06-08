@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LayoutDashboard, LogOut } from "lucide-react";
+import { base44 } from "@/api/base44Client";
 
 export default function GlinficoNav() {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
+
+  useEffect(() => {
+    base44.auth.me().catch(() => null).then(setUser);
+  }, [location.pathname]);
 
   const links = [
     { label: "Home", to: "/" },
@@ -14,6 +20,8 @@ export default function GlinficoNav() {
     { label: "Pricing", to: "/pricing" },
     { label: "Contact", to: "/contact" },
   ];
+
+  const isActive = (to) => location.pathname === to;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-background/90 backdrop-blur-md">
@@ -39,9 +47,7 @@ export default function GlinficoNav() {
             <Link
               key={to}
               to={to}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === to ? "text-primary" : "text-foreground/80"
-              }`}
+              className={`text-sm font-medium transition-colors hover:text-primary ${isActive(to) ? "text-primary" : "text-foreground/80"}`}
             >
               {label}
             </Link>
@@ -50,25 +56,41 @@ export default function GlinficoNav() {
 
         {/* Desktop CTAs */}
         <div className="hidden items-center gap-3 lg:flex">
-          <Link to="/signup" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">
-            Sign Up
-          </Link>
-          <Link to="/portal" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">
-            Sign In
-          </Link>
-          <Link
-            to="/submit"
-            className="rounded-md bg-primary px-4 py-2 text-sm font-bold text-primary-foreground hover:bg-primary/80 transition-all"
-          >
-            Submit Deal
-          </Link>
+          {user ? (
+            <>
+              <Link
+                to="/dashboard"
+                className={`flex items-center gap-1.5 text-sm font-semibold transition-colors hover:text-primary ${isActive("/dashboard") ? "text-primary" : "text-foreground/80"}`}
+              >
+                <LayoutDashboard className="h-4 w-4" /> Dashboard
+              </Link>
+              <button
+                onClick={() => base44.auth.logout("/")}
+                className="flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <LogOut className="h-4 w-4" /> Sign Out
+              </button>
+              <Link to="/submit" className="rounded-md bg-primary px-4 py-2 text-sm font-bold text-primary-foreground hover:bg-primary/80 transition-all">
+                Submit Deal
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/signup" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">
+                Sign Up
+              </Link>
+              <Link to="/portal" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">
+                Sign In
+              </Link>
+              <Link to="/submit" className="rounded-md bg-primary px-4 py-2 text-sm font-bold text-primary-foreground hover:bg-primary/80 transition-all">
+                Submit Deal
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile menu button */}
-        <button
-          className="lg:hidden text-foreground"
-          onClick={() => setOpen(!open)}
-        >
+        <button className="lg:hidden text-foreground" onClick={() => setOpen(!open)}>
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
@@ -78,19 +100,24 @@ export default function GlinficoNav() {
         <div className="border-t border-white/10 bg-background/95 lg:hidden">
           <div className="flex flex-col gap-1 px-5 py-4">
             {links.map(({ label, to }) => (
-              <Link
-                key={to}
-                to={to}
-                onClick={() => setOpen(false)}
-                className="py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
-              >
+              <Link key={to} to={to} onClick={() => setOpen(false)} className="py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
                 {label}
               </Link>
             ))}
-            <div className="mt-3 flex gap-3 border-t border-white/10 pt-3">
-              <Link to="/signup" onClick={() => setOpen(false)} className="flex-1 rounded-md border border-white/20 py-2 text-center text-sm font-bold text-foreground hover:border-primary/50">Sign Up</Link>
-              <Link to="/portal" onClick={() => setOpen(false)} className="flex-1 rounded-md border border-white/20 py-2 text-center text-sm font-bold text-foreground hover:border-primary/50">Sign In</Link>
-              <Link to="/submit" onClick={() => setOpen(false)} className="flex-1 rounded-md bg-primary py-2 text-center text-sm font-bold text-primary-foreground">Submit Deal</Link>
+            <div className="mt-3 flex flex-wrap gap-2 border-t border-white/10 pt-3">
+              {user ? (
+                <>
+                  <Link to="/dashboard" onClick={() => setOpen(false)} className="flex-1 rounded-md border border-primary/40 py-2 text-center text-sm font-bold text-primary">Dashboard</Link>
+                  <button onClick={() => base44.auth.logout("/")} className="flex-1 rounded-md border border-white/20 py-2 text-sm font-semibold text-muted-foreground">Sign Out</button>
+                  <Link to="/submit" onClick={() => setOpen(false)} className="w-full rounded-md bg-primary py-2 text-center text-sm font-bold text-primary-foreground mt-1">Submit Deal</Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/signup" onClick={() => setOpen(false)} className="flex-1 rounded-md border border-white/20 py-2 text-center text-sm font-bold text-foreground">Sign Up</Link>
+                  <Link to="/portal" onClick={() => setOpen(false)} className="flex-1 rounded-md border border-white/20 py-2 text-center text-sm font-bold text-foreground">Sign In</Link>
+                  <Link to="/submit" onClick={() => setOpen(false)} className="w-full rounded-md bg-primary py-2 text-center text-sm font-bold text-primary-foreground mt-1">Submit Deal</Link>
+                </>
+              )}
             </div>
           </div>
         </div>
