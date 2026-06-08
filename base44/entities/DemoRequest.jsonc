@@ -1,0 +1,44 @@
+{
+  "name": "DemoRequest",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "features_interested": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "goals": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Scheduled",
+        "Completed"
+      ],
+      "default": "Pending"
+    }
+  },
+  "required": [
+    "full_name",
+    "email",
+    "role"
+  ]
+}

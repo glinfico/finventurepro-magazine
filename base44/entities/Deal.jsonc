@@ -1,0 +1,68 @@
+{
+  "name": "Deal",
+  "type": "object",
+  "properties": {
+    "applicant_name": {
+      "type": "string"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "deal_type": {
+      "type": "string",
+      "enum": [
+        "MCA Funding",
+        "Real Estate Capital",
+        "M&A Financing",
+        "Loan Servicing"
+      ]
+    },
+    "amount_requested": {
+      "type": "number"
+    },
+    "business_description": {
+      "type": "string"
+    },
+    "monthly_revenue": {
+      "type": "number"
+    },
+    "time_in_business": {
+      "type": "string"
+    },
+    "credit_score": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Submitted",
+        "Matched",
+        "Approved",
+        "Funded",
+        "Declined"
+      ],
+      "default": "Submitted"
+    },
+    "assigned_lender": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "user_role": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "applicant_name",
+    "email",
+    "deal_type",
+    "amount_requested"
+  ]
+}
