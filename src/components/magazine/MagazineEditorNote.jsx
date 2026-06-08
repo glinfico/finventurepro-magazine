@@ -10,22 +10,24 @@ const lines = [
 
 export default function MagazineEditorNote() {
   return (
-    <section className="px-5 py-20 lg:px-8">
+    <section className="px-5 py-16 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="grid gap-10 rounded-[2rem] border border-border bg-card p-10 lg:grid-cols-[1fr_2fr] lg:p-14"
+          className="grid gap-10 rounded-2xl border border-slate-700/60 bg-slate-900/40 p-10 lg:grid-cols-[1fr_2fr] lg:p-14"
         >
           <div>
-            <Feather className="h-8 w-8 text-primary mb-6" />
-            <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">From the Editor</p>
-            <h2 className="mt-3 font-display text-3xl tracking-[-0.04em] sm:text-4xl">A note on what we publish and why.</h2>
+            <div className="mb-6 inline-flex items-center justify-center h-12 w-12 rounded-xl border border-blue-500/30 bg-blue-500/10">
+              <Feather className="h-6 w-6 text-blue-400" />
+            </div>
+            <p className="text-xs uppercase tracking-[0.32em] text-slate-500">From the Editor</p>
+            <h2 className="mt-3 font-display text-3xl tracking-[-0.04em] text-white sm:text-4xl">A note on what we publish and why.</h2>
           </div>
-          <div className="space-y-5 text-muted-foreground leading-8">
+          <div className="space-y-5 text-slate-400 leading-8">
             {lines.map((line, i) => <p key={i}>{line}</p>)}
-            <p className="font-semibold text-foreground">— The FinVenturePro Editorial Team</p>
+            <p className="font-semibold text-slate-300">— The FinVenturePro Editorial Team</p>
           </div>
         </motion.div>
       </div>

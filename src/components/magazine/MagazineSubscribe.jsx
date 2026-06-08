@@ -27,13 +27,7 @@ export default function MagazineSubscribe() {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
-    await base44.entities.Subscriber.create({
-      email,
-      full_name: name,
-      interests,
-      source: "magazine_homepage",
-      status: "active",
-    });
+    await base44.entities.Subscriber.create({ email, full_name: name, interests, source: "magazine_homepage", status: "active" });
     setLoading(false);
     setDone(true);
   };
@@ -42,38 +36,44 @@ export default function MagazineSubscribe() {
     <section id="subscribe" className="px-5 py-24 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="rounded-[2.5rem] border border-border bg-primary p-8 text-primary-foreground shadow-2xl shadow-primary/20 sm:p-12 lg:p-16">
+          className="relative rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-950/80 to-slate-900/90 p-8 shadow-2xl shadow-blue-900/20 sm:p-12 lg:p-16 overflow-hidden">
+          {/* Glow */}
+          <div className="pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full bg-blue-600/20 blur-3xl" />
+
           {done ? (
-            <div className="text-center py-8">
-              <CheckCircle2 className="mx-auto h-16 w-16 opacity-90 mb-6" />
-              <h2 className="font-display text-4xl tracking-[-0.05em]">You're in.</h2>
-              <p className="mt-4 text-primary-foreground/75 max-w-md mx-auto">
+            <div className="text-center py-8 relative z-10">
+              <div className="mx-auto mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/10">
+                <CheckCircle2 className="h-9 w-9 text-emerald-400" />
+              </div>
+              <h2 className="font-display text-4xl tracking-[-0.05em] text-white">You're in.</h2>
+              <p className="mt-4 text-slate-400 max-w-md mx-auto">
                 The FinVenturePro intelligence brief lands in your inbox every Friday. Free, always.
               </p>
             </div>
           ) : (
-            <>
+            <div className="relative z-10">
               <div className="flex items-center gap-3 mb-6">
-                <div className="h-10 w-10 rounded-2xl bg-primary-foreground/10 border border-primary-foreground/20 flex items-center justify-center">
-                  <Mail className="h-5 w-5" />
+                <div className="h-10 w-10 rounded-xl border border-blue-500/30 bg-blue-500/15 flex items-center justify-center">
+                  <Mail className="h-5 w-5 text-blue-400" />
                 </div>
-                <span className="text-xs uppercase tracking-[0.32em] text-primary-foreground/70">Free Newsletter</span>
+                <span className="text-xs uppercase tracking-[0.32em] text-blue-400 font-semibold">Free Newsletter</span>
               </div>
-              <h2 className="font-display text-4xl leading-tight tracking-[-0.05em] sm:text-5xl lg:text-6xl mb-3">
-                Receive the brief investors forward.
+              <h2 className="font-display text-4xl leading-tight tracking-[-0.05em] text-white sm:text-5xl lg:text-6xl mb-3">
+                Receive the brief<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">investors forward.</span>
               </h2>
-              <p className="text-primary-foreground/70 leading-7 max-w-2xl mb-8">
+              <p className="text-slate-400 leading-7 max-w-2xl mb-8">
                 Every Friday: market maps, founder-grade analysis, retirement strategies, and private capital signals — in one elegant briefing. Free forever.
               </p>
 
-              {/* Topic interests */}
               <div className="mb-8">
-                <p className="text-xs uppercase tracking-widest text-primary-foreground/60 mb-3">Customize your brief (optional)</p>
+                <p className="text-xs uppercase tracking-widest text-slate-500 mb-3">Customize your brief (optional)</p>
                 <div className="flex flex-wrap gap-2">
                   {TOPICS.map(({ label, icon: Icon }) => (
                     <button key={label} type="button" onClick={() => toggle(label)}
                       className={`flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold transition-all
-                        ${interests.includes(label) ? "bg-primary-foreground text-primary border-primary-foreground" : "border-primary-foreground/30 text-primary-foreground/70 hover:border-primary-foreground/60"}`}>
+                        ${interests.includes(label)
+                          ? "bg-blue-600 text-white border-blue-500 shadow-lg shadow-blue-600/20"
+                          : "border-slate-700 text-slate-400 hover:border-blue-500/50 hover:text-slate-200"}`}>
                       <Icon className="h-3 w-3" /> {label}
                     </button>
                   ))}
@@ -85,7 +85,7 @@ export default function MagazineSubscribe() {
                   placeholder="Your name (optional)"
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  className="h-13 rounded-full border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground placeholder-primary-foreground/50 focus-visible:ring-primary-foreground/30"
+                  className="h-12 rounded-full border-slate-700 bg-slate-800/60 text-white placeholder-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50"
                 />
                 <Input
                   type="email"
@@ -93,15 +93,15 @@ export default function MagazineSubscribe() {
                   placeholder="your@email.com"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="h-13 rounded-full border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground placeholder-primary-foreground/50 focus-visible:ring-primary-foreground/30"
+                  className="h-12 rounded-full border-slate-700 bg-slate-800/60 text-white placeholder-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50"
                 />
                 <Button type="submit" disabled={loading || !email}
-                  className="h-13 rounded-full bg-primary-foreground text-primary font-bold px-8 hover:opacity-90 shrink-0">
+                  className="h-12 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 shrink-0 shadow-lg shadow-blue-600/30">
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Subscribe Free"}
                 </Button>
               </form>
-              <p className="mt-4 text-xs text-primary-foreground/50">No spam. Unsubscribe any time. Free forever.</p>
-            </>
+              <p className="mt-4 text-xs text-slate-600">No spam. Unsubscribe any time. Free forever.</p>
+            </div>
           )}
         </motion.div>
       </div>

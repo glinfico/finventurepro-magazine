@@ -14,9 +14,9 @@ import MagazineFooter from "@/components/magazine/MagazineFooter";
 
 export default function MagazineHome() {
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-hidden pb-14">
+    <main className="min-h-screen bg-[#070D18] text-foreground overflow-hidden pb-14">
       {/* FOD sticky banner */}
-      <div className="fixed bottom-0 inset-x-0 z-40 bg-primary/95 backdrop-blur border-t border-white/10 py-2.5 px-5">
+      <div className="fixed bottom-0 inset-x-0 z-40 bg-blue-950/95 backdrop-blur border-t border-blue-500/20 py-2.5 px-5">
         <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
           <p className="text-sm font-semibold text-primary-foreground hidden sm:block">
             Need capital? GLINFICO Financial Operations Division — fast access to MCA, real estate, and M&amp;A funding.

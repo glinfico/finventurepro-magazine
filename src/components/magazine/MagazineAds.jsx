@@ -13,8 +13,8 @@ const adSlots = [
     price: 8500,
     unit: "/month",
     badge: "EXCLUSIVE",
-    badgeColor: "bg-primary text-primary-foreground",
-    description: "Full-width hero banner above all content on the magazine homepage. Maximum brand exposure for every visitor before a single scroll.",
+    badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+    description: "Full-width hero banner above all content on the magazine homepage. Maximum brand exposure.",
     specs: "1400×350 · desktop + mobile · 1 advertiser only",
     impressions: "~25,000 impressions/mo",
   },
@@ -25,8 +25,8 @@ const adSlots = [
     price: 4200,
     unit: "/month",
     badge: "HIGH ENGAGEMENT",
-    badgeColor: "bg-blue-500/20 text-blue-300 border border-blue-500/30",
-    description: "Editorial-style native placement inserted at the midpoint of every article. Readers are deep in content and highly receptive.",
+    badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+    description: "Editorial-style native placement inserted at the midpoint of every article. Readers are deep in content.",
     specs: "Full-width native card · logo + 80-word copy + CTA",
     impressions: "~18,000 engaged reads/mo",
   },
@@ -37,8 +37,8 @@ const adSlots = [
     price: 3000,
     unit: "/issue",
     badge: "CURATED AUDIENCE",
-    badgeColor: "bg-green-500/20 text-green-300 border border-green-500/30",
-    description: "Exclusive sponsorship inside the FinVenturePro weekly intelligence brief. Directly in the inbox of opted-in subscribers.",
+    badgeColor: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30",
+    description: "Exclusive sponsorship inside the FinVenturePro weekly intelligence brief.",
     specs: "Logo + headline + 120-word sponsor copy block",
     impressions: "~6,500 subscribers/issue",
   },
@@ -49,8 +49,8 @@ const adSlots = [
     price: 2800,
     unit: "/month",
     badge: "TARGETED",
-    badgeColor: "bg-violet-500/20 text-violet-300 border border-violet-500/30",
-    description: "Branded placement on all Consulting and Retirement section pages and AI chat interface. Reach decision-makers seeking strategic advice.",
+    badgeColor: "bg-violet-500/20 text-violet-300 border-violet-500/30",
+    description: "Branded placement on all Consulting and Retirement section pages and AI chat interface.",
     specs: "300×250 · logo + tagline + link",
     impressions: "~9,000 impressions/mo",
   },
@@ -61,8 +61,8 @@ const adSlots = [
     price: 1800,
     unit: "/month",
     badge: "BRAND PRESENCE",
-    badgeColor: "bg-amber-500/20 text-amber-300 border border-amber-500/30",
-    description: "Persistent brand presence at the foot of every page across all six sections. Ideal for awareness and retargeting campaigns.",
+    badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/30",
+    description: "Persistent brand presence at the foot of every page across all six sections.",
     specs: "Full-width · logo + one-line tagline",
     impressions: "~30,000 impressions/mo",
   },
@@ -73,8 +73,8 @@ const adSlots = [
     price: 2200,
     unit: "/month",
     badge: "NICHE REACH",
-    badgeColor: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
-    description: "Own an entire section — Finance, Economy, Insurance, Travel, Business Consulting, or Retirement. Sole sponsor of that category.",
+    badgeColor: "bg-rose-500/20 text-rose-300 border-rose-500/30",
+    description: "Own an entire section — Finance, Economy, Insurance, Travel, Consulting, or Retirement.",
     specs: "Category badge + header placement + archive listing",
     impressions: "Varies by section · avg 7,000/mo",
   },
@@ -120,17 +120,17 @@ export default function MagazineAds() {
   };
 
   return (
-    <section id="ads" className="px-5 py-24 lg:px-8 border-t border-border">
+    <section id="ads" className="px-5 py-24 lg:px-8 border-t border-slate-800/60">
       <div className="mx-auto max-w-7xl">
 
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-14">
           <div className="flex items-center gap-2 mb-3">
-            <Megaphone className="h-5 w-5 text-primary" />
-            <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">Advertising</p>
+            <Megaphone className="h-5 w-5 text-blue-400" />
+            <p className="text-xs uppercase tracking-[0.32em] text-slate-500">Advertising</p>
           </div>
-          <h2 className="font-display text-4xl tracking-[-0.05em] sm:text-5xl">Reach 25,000+ serious readers.</h2>
-          <p className="mt-4 max-w-2xl text-muted-foreground leading-7">
-            FinVenturePro readers are business owners, investors, and decision-makers actively managing money. Six open placements — all priced transparently. Pay monthly by card. Cancel any time.
+          <h2 className="font-display text-4xl tracking-[-0.05em] text-white sm:text-5xl">Reach 25,000+ serious readers.</h2>
+          <p className="mt-4 max-w-2xl text-slate-400 leading-7">
+            FinVenturePro readers are business owners, investors, and decision-makers actively managing money. Six open placements — all priced transparently.
           </p>
         </motion.div>
 
@@ -141,20 +141,22 @@ export default function MagazineAds() {
               <motion.div key={slot.position} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
                 <div
                   onClick={() => setSelected(slot)}
-                  className={`relative flex flex-col h-full rounded-[1.5rem] border p-6 transition-all cursor-pointer
-                    ${selected?.position === slot.position ? "border-primary bg-primary/5 shadow-lg shadow-primary/10" : "border-border bg-card hover:border-primary/40 hover:-translate-y-1 hover:shadow-md"}`}
+                  className={`relative flex flex-col h-full rounded-2xl border p-6 transition-all cursor-pointer
+                    ${selected?.position === slot.position
+                      ? "border-blue-500/50 bg-blue-500/5 shadow-lg shadow-blue-500/10"
+                      : "border-slate-700/60 bg-slate-900/60 hover:border-slate-600/80 hover:-translate-y-1 hover:shadow-lg"}`}
                 >
-                  <span className={`absolute top-4 right-4 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide border ${slot.badgeColor}`}>{slot.badge}</span>
-                  <div className="mb-4 w-fit rounded-xl bg-secondary p-2.5"><Icon className="h-5 w-5 text-primary" /></div>
-                  <h3 className="font-bold text-foreground mb-1 pr-16">{slot.label}</h3>
-                  <p className="text-sm text-muted-foreground leading-6 flex-1">{slot.description}</p>
-                  <div className="mt-5 pt-4 border-t border-border">
-                    <div className="text-2xl font-black text-foreground">${slot.price.toLocaleString()}<span className="text-sm font-normal text-muted-foreground">{slot.unit}</span></div>
-                    <div className="mt-1 text-xs text-muted-foreground">{slot.impressions}</div>
-                    <div className="mt-0.5 text-xs text-muted-foreground opacity-70">{slot.specs}</div>
+                  <span className={`absolute top-4 right-4 rounded-full border px-2 py-0.5 text-[10px] font-bold tracking-wide ${slot.badgeColor}`}>{slot.badge}</span>
+                  <div className="mb-4 w-fit rounded-xl bg-slate-800 border border-slate-700/50 p-2.5"><Icon className="h-5 w-5 text-blue-400" /></div>
+                  <h3 className="font-bold text-white mb-1 pr-16">{slot.label}</h3>
+                  <p className="text-sm text-slate-400 leading-6 flex-1">{slot.description}</p>
+                  <div className="mt-5 pt-4 border-t border-slate-800">
+                    <div className="text-2xl font-black text-white">${slot.price.toLocaleString()}<span className="text-sm font-normal text-slate-500">{slot.unit}</span></div>
+                    <div className="mt-1 text-xs text-slate-500">{slot.impressions}</div>
+                    <div className="mt-0.5 text-xs text-slate-600">{slot.specs}</div>
                   </div>
                   {selected?.position === slot.position && (
-                    <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-primary">
+                    <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-blue-400">
                       <CheckCircle2 className="h-4 w-4" /> Selected
                     </div>
                   )}
@@ -166,14 +168,14 @@ export default function MagazineAds() {
 
         {/* Stripe Checkout form */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="mx-auto max-w-2xl rounded-[2rem] border border-border bg-card p-8 sm:p-10">
+          className="mx-auto max-w-2xl rounded-2xl border border-slate-700/60 bg-slate-900/60 p-8 sm:p-10">
           <div className="mb-6 flex items-center gap-3">
-            <div className="rounded-xl bg-primary/10 border border-primary/20 p-2.5">
-              <CreditCard className="h-5 w-5 text-primary" />
+            <div className="rounded-xl bg-blue-500/10 border border-blue-500/20 p-2.5">
+              <CreditCard className="h-5 w-5 text-blue-400" />
             </div>
             <div>
-              <h3 className="text-xl font-bold">Reserve a Placement</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="text-xl font-bold text-white">Reserve a Placement</h3>
+              <p className="text-sm text-slate-400">
                 {selected ? `${selected.label} — $${selected.price.toLocaleString()}${selected.unit}` : "Select a spot above, then complete checkout."}
               </p>
             </div>
@@ -181,20 +183,25 @@ export default function MagazineAds() {
 
           <form onSubmit={handleCheckout} className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
-              <Input placeholder="Company / Brand name *" value={form.advertiser_name} onChange={e => setForm({ ...form, advertiser_name: e.target.value })} required />
-              <Input type="email" placeholder="Contact email *" value={form.advertiser_email} onChange={e => setForm({ ...form, advertiser_email: e.target.value })} required />
+              <Input placeholder="Company / Brand name *" value={form.advertiser_name} onChange={e => setForm({ ...form, advertiser_name: e.target.value })} required
+                className="border-slate-700 bg-slate-800/60 text-white placeholder-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50" />
+              <Input type="email" placeholder="Contact email *" value={form.advertiser_email} onChange={e => setForm({ ...form, advertiser_email: e.target.value })} required
+                className="border-slate-700 bg-slate-800/60 text-white placeholder-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50" />
             </div>
-            <Input placeholder="Ad headline or campaign theme (optional)" value={form.ad_headline} onChange={e => setForm({ ...form, ad_headline: e.target.value })} />
-            <Input placeholder="Destination URL (optional)" value={form.ad_link} onChange={e => setForm({ ...form, ad_link: e.target.value })} />
+            <Input placeholder="Ad headline or campaign theme (optional)" value={form.ad_headline} onChange={e => setForm({ ...form, ad_headline: e.target.value })}
+              className="border-slate-700 bg-slate-800/60 text-white placeholder-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50" />
+            <Input placeholder="Destination URL (optional)" value={form.ad_link} onChange={e => setForm({ ...form, ad_link: e.target.value })}
+              className="border-slate-700 bg-slate-800/60 text-white placeholder-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50" />
 
-            {error && <p className="text-sm text-destructive">{error}</p>}
+            {error && <p className="text-sm text-red-400">{error}</p>}
 
-            <Button type="submit" disabled={!selected || loading || !form.advertiser_name || !form.advertiser_email} className="w-full rounded-full h-12 gap-2">
+            <Button type="submit" disabled={!selected || loading || !form.advertiser_name || !form.advertiser_email}
+              className="w-full rounded-full h-12 gap-2 bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20">
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <CreditCard className="h-4 w-4" />}
               {loading ? "Redirecting to Stripe..." : selected ? `Pay $${selected.price.toLocaleString()}${selected.unit} via Stripe` : "Select a slot to continue"}
             </Button>
 
-            <p className="text-center text-xs text-muted-foreground">
+            <p className="text-center text-xs text-slate-600">
               Secure payment via Stripe · Monthly subscription · Cancel any time
             </p>
           </form>
