@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
+
+let _logoId = 0;
 
 export default function MagazineLogo({ size = "md" }) {
+  const gradId = React.useRef(`fvpGrad_${++_logoId}`).current;
   const cfg = {
     sm: { badge: 36, fvp: 9,  name: "15px", sub: "8px",  gap: 10 },
     md: { badge: 44, fvp: 10, name: "18px", sub: "9px",  gap: 12 },
@@ -16,11 +19,11 @@ export default function MagazineLogo({ size = "md" }) {
         {/* Mid layer */}
         <rect x="5" y="5" width="34" height="34" rx="8" fill="#2563EB" fillOpacity="0.45" transform="rotate(6 22 22)" />
         {/* Main badge */}
-        <rect x="6" y="6" width="32" height="32" rx="7" fill="url(#fvpGrad)" />
+        <rect x="6" y="6" width="32" height="32" rx="7" fill={`url(#${gradId})`} />
         {/* FVP text rendered as SVG text — always visible, no font load required */}
         <text x="22" y="26" textAnchor="middle" fill="white" fontFamily="Inter, ui-sans-serif, sans-serif" fontWeight="900" fontSize={cfg.fvp} letterSpacing="-0.5">FVP</text>
         <defs>
-          <linearGradient id="fvpGrad" x1="6" y1="6" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+          <linearGradient id={gradId} x1="6" y1="6" x2="38" y2="38" gradientUnits="userSpaceOnUse">
             <stop stopColor="#3B82F6" />
             <stop offset="1" stopColor="#1D4ED8" />
           </linearGradient>

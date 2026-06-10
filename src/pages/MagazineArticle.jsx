@@ -174,6 +174,7 @@ const articles = {
   // --- Editorial Archive Articles ---
   "personal-finance-101": {
     slug: "personal-finance-101", section: "Finance", category: "finance", icon: DollarSign,
+    image_url: "https://media.base44.com/images/public/6a26e651b3e308d33472995c/6323cd11c_generated_image.png",
     title: "Building Wealth on Any Income: The Framework That Actually Works",
     subtitle: "Five principles that separate those who accumulate from those who don't, regardless of salary.",
     readTime: "9 min read", date: "June 1, 2026", author: "Editorial Team", tags: ["Personal Finance", "Wealth"],
@@ -188,6 +189,7 @@ const articles = {
   },
   "inflation-decoded": {
     slug: "inflation-decoded", section: "Economy", category: "economy", icon: BarChart3,
+    image_url: "https://media.base44.com/images/public/6a26e651b3e308d33472995c/5ec1d3093_generated_image.png",
     title: "Inflation Decoded: What the Numbers Never Tell You",
     subtitle: "Why headline CPI misses the picture most consumers and investors actually live in.",
     readTime: "7 min read", date: "June 2, 2026", author: "Economy Desk", tags: ["Inflation", "CPI", "Macro"],
@@ -200,6 +202,7 @@ const articles = {
   },
   "insurance-gaps": {
     slug: "insurance-gaps", section: "Insurance", category: "insurance", icon: ShieldCheck,
+    image_url: "https://media.base44.com/images/public/6a26e651b3e308d33472995c/f42317910_generated_image.png",
     title: "The Insurance Gaps That Could Ruin Your Business Overnight",
     subtitle: "Most SMBs carry inadequate coverage in exactly the three areas most likely to cause catastrophic loss.",
     readTime: "8 min read", date: "June 3, 2026", author: "Editorial Team", tags: ["Insurance", "SMB", "Risk"],
@@ -212,6 +215,7 @@ const articles = {
   },
   "business-travel-reimagined": {
     slug: "business-travel-reimagined", section: "Travel", category: "travel", icon: Plane,
+    image_url: "https://media.base44.com/images/public/6a26e651b3e308d33472995c/c8023eabe_generated_image.png",
     title: "Business Travel in 2026: How to Spend Less and Arrive Better",
     subtitle: "Points optimization, premium cabin access, and the new rules of corporate travel policy.",
     readTime: "6 min read", date: "June 4, 2026", author: "Travel Desk", tags: ["Travel", "Corporate", "Points"],
@@ -224,6 +228,7 @@ const articles = {
   },
   "consulting-growth": {
     slug: "consulting-growth", section: "Business Consulting", category: "consulting", icon: Briefcase,
+    image_url: "https://media.base44.com/images/public/6a26e651b3e308d33472995c/c23b4a5f6_generated_image.png",
     title: "The Five-Question Framework Every Business Owner Needs Before Scaling",
     subtitle: "Before you hire, expand, or raise capital, answer these. Your growth trajectory depends on it.",
     readTime: "11 min read", date: "June 5, 2026", author: "Consulting Desk", tags: ["Strategy", "Growth", "SMB"],
@@ -238,6 +243,7 @@ const articles = {
   },
   "credit-economy-2026": {
     slug: "credit-economy-2026", section: "Economy", category: "economy", icon: BarChart3,
+    image_url: "https://media.base44.com/images/public/6a26e651b3e308d33472995c/a54643ece_generated_image.png",
     title: "The Credit Cycle Is Turning: What It Means for Your Portfolio",
     subtitle: "Rising spreads, tightening conditions, and what history says about the next 18 months.",
     readTime: "10 min read", date: "June 6, 2026", author: "Markets Desk", tags: ["Credit", "Portfolio", "Macro"],
@@ -250,6 +256,7 @@ const articles = {
   },
   "retirement-planning-2026": {
     slug: "retirement-planning-2026", section: "Retirement", category: "retirement", icon: DollarSign,
+    image_url: "https://media.base44.com/images/public/6a26e651b3e308d33472995c/ae74e5b1d_generated_image.png",
     title: "Retirement Planning in Uncertain Markets: A 2026 Guide",
     subtitle: "How to build a resilient retirement portfolio when everything seems volatile.",
     readTime: "10 min read", date: "June 7, 2026", author: "Retirement Desk", tags: ["Retirement", "Portfolio", "Planning"],
@@ -262,6 +269,7 @@ const articles = {
   },
   "401k-maximization": {
     slug: "401k-maximization", section: "Retirement", category: "retirement", icon: DollarSign,
+    image_url: "https://media.base44.com/images/public/6a26e651b3e308d33472995c/ae74e5b1d_generated_image.png",
     title: "Maxing Your 401(k) in 2026: New Limits, New Strategies",
     subtitle: "Contribution limits changed again — here is how to take full advantage at every income level.",
     readTime: "8 min read", date: "June 8, 2026", author: "Retirement Desk", tags: ["401k", "Tax", "Retirement"],
