@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import MagazineHeader from "@/components/magazine/MagazineHeader";
 import MagazineFooter from "@/components/magazine/MagazineFooter";
 import { Clock, Search, BarChart3, ShieldCheck, Plane, Briefcase, DollarSign, X, Globe, ExternalLink } from "lucide-react";
+import MagazineLogo from "@/components/magazine/MagazineLogo";
 import { motion } from "framer-motion";
 import { base44 } from "@/api/base44Client";
 
@@ -78,7 +79,7 @@ export default function MagazineArchive() {
   };
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-[#070D18] text-white">
       <MagazineHeader />
 
       {/* FOD sticky banner */}
@@ -98,8 +99,11 @@ export default function MagazineArchive() {
       <div className="px-5 pt-40 pb-28 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="mb-10">
-            <p className="text-sm uppercase tracking-[0.32em] text-muted-foreground mb-3">FinVenturePro Archive</p>
-            <h1 className="font-display text-5xl tracking-[-0.05em] sm:text-6xl">Every Article.</h1>
+            <div className="flex items-center gap-4 mb-6">
+              <MagazineLogo size="md" />
+            </div>
+            <p className="text-sm uppercase tracking-[0.32em] text-muted-foreground mb-3">Archive</p>
+            <h1 className="font-display text-5xl tracking-[-0.05em] sm:text-6xl text-white">Every Article.</h1>
             <p className="mt-4 max-w-2xl text-lg text-muted-foreground">Browse all editorial content across Finance, Economy, Insurance, Travel, Business Consulting, and Retirement.</p>
           </motion.div>
 
@@ -111,7 +115,7 @@ export default function MagazineArchive() {
                 value={localSearch}
                 onChange={e => setLocalSearch(e.target.value)}
                 placeholder="Search articles, topics, keywords..."
-                className="w-full rounded-full border border-border bg-card pl-11 pr-10 py-3 text-sm text-foreground placeholder-muted-foreground focus:border-primary/60 focus:outline-none transition-all"
+                className="w-full rounded-full border border-slate-700 bg-slate-800/60 pl-11 pr-10 py-3 text-sm text-white placeholder-slate-500 focus:border-blue-500/60 focus:outline-none transition-all"
               />
               {localSearch && (
                 <button type="button" onClick={clearSearch} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
@@ -119,14 +123,14 @@ export default function MagazineArchive() {
                 </button>
               )}
             </div>
-            <button type="submit" className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-all">Search</button>
+            <button type="submit" className="rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-500 transition-all">Search</button>
           </form>
 
           {/* Category filters */}
           <div className="mb-10 flex flex-wrap gap-2">
             {CATS.map(cat => (
               <button key={cat} onClick={() => setCat(cat)}
-                className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${activeCategory === cat ? "bg-primary text-primary-foreground" : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"}`}>
+                className={`rounded-full px-5 py-2 text-sm font-semibold transition-all ${activeCategory === cat ? "bg-blue-600 text-white" : "border border-slate-700 text-slate-400 hover:border-blue-500/40 hover:text-white"}`}>
                 {cat === "All" ? "All Articles" : categoryMeta[cat]?.label || cat}
               </button>
             ))}
@@ -142,7 +146,7 @@ export default function MagazineArchive() {
 
           {loading ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {[1,2,3,4,5,6].map(i => <div key={i} className="rounded-[1.5rem] border border-border bg-card p-7 animate-pulse h-52" />)}
+              {[1,2,3,4,5,6].map(i => <div key={i} className="rounded-[1.5rem] border border-slate-800 bg-slate-900/60 animate-pulse h-72" />)}
             </div>
           ) : filtered.length === 0 ? (
             <div className="py-20 text-center text-muted-foreground">
@@ -158,16 +162,27 @@ export default function MagazineArchive() {
                 return (
                   <motion.div key={article.slug || article.id} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 6) * 0.05 }}>
                     <Link to={`/magazine/article/${article.slug || article.id}`}
-                      className="group flex flex-col h-full rounded-[1.5rem] border border-border bg-card p-7 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30 transition-all">
-                      <div className="mb-6 flex items-start justify-between gap-2">
-                        <div className="rounded-2xl bg-secondary p-3 shrink-0"><Icon className="h-5 w-5 text-primary" /></div>
-                        <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${meta.color}`}>{article.section}</span>
-                      </div>
-                      <h3 className="flex-1 text-lg font-semibold leading-snug tracking-[-0.02em] group-hover:text-primary transition-colors">{article.title}</h3>
-                      <p className="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-2">{article.subtitle || article.intro}</p>
-                      <div className="mt-5 flex items-center gap-4 text-xs text-muted-foreground border-t border-border pt-4">
-                        <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {article.read_time || article.readTime}</span>
-                        <span>{article.published_date || article.date}</span>
+                      className="group flex flex-col h-full rounded-[1.5rem] border border-slate-800/60 bg-slate-900/60 overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/30 transition-all">
+                      {/* Thumbnail */}
+                      {article.image_url ? (
+                        <div className="h-44 overflow-hidden">
+                          <img src={article.image_url} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        </div>
+                      ) : (
+                        <div className="h-44 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center">
+                          <Icon className="h-10 w-10 text-slate-600" />
+                        </div>
+                      )}
+                      <div className="flex flex-col flex-1 p-6">
+                        <div className="mb-3 flex items-center justify-between gap-2">
+                          <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${meta.color}`}>{article.section}</span>
+                        </div>
+                        <h3 className="flex-1 text-base font-semibold leading-snug tracking-[-0.02em] text-white group-hover:text-blue-300 transition-colors">{article.title}</h3>
+                        <p className="mt-2 text-sm text-slate-500 leading-relaxed line-clamp-2">{article.subtitle || article.intro}</p>
+                        <div className="mt-4 flex items-center gap-4 text-xs text-slate-600 border-t border-slate-800 pt-4">
+                          <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {article.read_time || article.readTime}</span>
+                          <span>{article.published_date || article.date}</span>
+                        </div>
                       </div>
                     </Link>
                   </motion.div>

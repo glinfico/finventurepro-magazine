@@ -3,8 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import MagazineHeader from "@/components/magazine/MagazineHeader";
 import MagazineFooter from "@/components/magazine/MagazineFooter";
+import MagazineLogo from "@/components/magazine/MagazineLogo";
 import SubscribePanel from "@/components/magazine/SubscribePanel";
-import { ArrowLeft, Clock, BookOpen, Share2, BarChart3, Briefcase, Globe2, TrendingUp, Landmark, DollarSign, ShieldCheck, Plane, ExternalLink } from "lucide-react";
+import { ArrowLeft, Clock, BookOpen, Share2, BarChart3, Briefcase, Globe2, TrendingUp, Landmark, DollarSign, ShieldCheck, Plane, ExternalLink, Play } from "lucide-react";
 import { motion } from "framer-motion";
 
 const articles = {
@@ -266,10 +267,13 @@ export default function MagazineArticle() {
       <article className="px-5 pt-32 pb-28 lg:px-8">
         <div className="mx-auto max-w-4xl">
 
-          {/* Back */}
-          <Link to="/magazine" className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="h-4 w-4" /> Back to Magazine
-          </Link>
+          {/* Back + Logo */}
+          <div className="mb-8 flex items-center justify-between">
+            <Link to="/magazine" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-white transition-colors">
+              <ArrowLeft className="h-4 w-4" /> Back to Magazine
+            </Link>
+            <MagazineLogo size="sm" />
+          </div>
 
           {/* Header */}
           <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -298,8 +302,8 @@ export default function MagazineArticle() {
           {/* Hero Image */}
           {article.image_url && (
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="my-8 overflow-hidden rounded-2xl border border-slate-700/60">
-              <img src={article.image_url} alt={article.title} className="w-full h-64 sm:h-96 object-cover" />
+              className="my-8 overflow-hidden rounded-2xl border border-slate-700/60 shadow-2xl shadow-black/40">
+              <img src={article.image_url} alt={article.title} className="w-full h-72 sm:h-[480px] object-cover" />
             </motion.div>
           )}
 
@@ -311,32 +315,56 @@ export default function MagazineArticle() {
           </motion.div>
 
           {/* Body */}
-          <div className="space-y-10">
+          <div className="space-y-12">
             {article.body.map((section, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
-                <h2 className="mb-4 font-display text-2xl tracking-[-0.03em] text-white sm:text-3xl">{section.heading}</h2>
-                <p className="leading-8 text-slate-400 text-lg">{section.content}</p>
+                {section.heading && (
+                  <h2 className="mb-4 font-display text-2xl tracking-[-0.03em] text-white sm:text-3xl">{section.heading}</h2>
+                )}
+                {section.content && (
+                  <p className="leading-8 text-slate-400 text-lg">{section.content}</p>
+                )}
                 {/* Inline image per section */}
                 {section.image_url && (
-                  <div className="mt-6 overflow-hidden rounded-2xl border border-slate-700/60">
-                    <img src={section.image_url} alt={section.heading} className="w-full h-56 object-cover" />
+                  <div className="mt-6 overflow-hidden rounded-2xl border border-slate-700/60 shadow-lg shadow-black/30">
+                    <img src={section.image_url} alt={section.heading || "Article image"} className="w-full h-64 sm:h-80 object-cover" />
+                    {section.image_caption && (
+                      <p className="px-5 py-3 text-xs text-slate-500 bg-slate-900/80 italic">{section.image_caption}</p>
+                    )}
+                  </div>
+                )}
+                {/* Inline video per section */}
+                {section.video_url && (
+                  <div className="mt-6 overflow-hidden rounded-2xl border border-slate-700/60 aspect-video shadow-lg shadow-black/30">
+                    <iframe
+                      src={section.video_url.replace("watch?v=", "embed/").replace("youtu.be/", "www.youtube.com/embed/")}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      title={section.heading || "Video"}
+                    />
                   </div>
                 )}
               </motion.div>
             ))}
           </div>
 
-          {/* Video embed */}
+          {/* Article-level video embed (after body) */}
           {article.video_url && (
             <motion.div initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              className="mt-12 overflow-hidden rounded-2xl border border-slate-700/60 aspect-video">
-              <iframe
-                src={article.video_url.replace("watch?v=", "embed/").replace("youtu.be/", "www.youtube.com/embed/")}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title={article.title}
-              />
+              className="mt-12">
+              <h3 className="mb-4 text-sm uppercase tracking-widest text-slate-500 flex items-center gap-2">
+                <Play className="h-4 w-4 text-blue-400" /> Video
+              </h3>
+              <div className="overflow-hidden rounded-2xl border border-slate-700/60 aspect-video shadow-xl shadow-black/40">
+                <iframe
+                  src={article.video_url.replace("watch?v=", "embed/").replace("youtu.be/", "www.youtube.com/embed/")}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title={article.title}
+                />
+              </div>
             </motion.div>
           )}
 
