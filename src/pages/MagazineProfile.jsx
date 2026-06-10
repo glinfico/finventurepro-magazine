@@ -5,7 +5,7 @@ import MagazineFooter from "@/components/magazine/MagazineFooter";
 import { base44 } from "@/api/base44Client";
 import { motion } from "framer-motion";
 import { User, Mail, BookOpen, Star, Clock, ArrowRight, Bookmark, Settings, LogOut, ExternalLink } from "lucide-react";
-import { base44 as b44 } from "@/api/base44Client";
+import AdminArticleEditor from "@/components/magazine/AdminArticleEditor";
 
 const INTERESTS = [
   { key: "finance", label: "Finance" },
@@ -199,6 +199,13 @@ export default function MagazineProfile() {
                       );
                     })}
                   </div>
+                </motion.div>
+              )}
+
+              {/* Admin: Article Manager */}
+              {user.role === "admin" && (
+                <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
+                  <AdminArticleEditor />
                 </motion.div>
               )}
 
