@@ -165,26 +165,124 @@ const articles = {
     tags: ["Real Estate", "Bridge Lending", "Commercial Finance"],
     intro: "Rate plateaus historically create dislocations in commercial real estate bridge markets. Capital that was cheap becomes expensive; operators who borrowed at optimistic assumptions face refinancing walls. For prepared lenders, these moments are generational.",
     body: [
-      {
-        heading: "The Refinancing Wall",
-        content: "A significant volume of commercial real estate debt originated between 2020 and 2022 was structured with interest rate assumptions that no longer reflect reality. As these loans mature, sponsors face a choice: inject equity to service higher-rate refinancing, sell at compressed valuations, or seek bridge financing while they reposition or stabilize the asset."
-      },
-      {
-        heading: "Where Bridge Capital Fits",
-        content: "Well-structured bridge lending in this environment targets sponsors with clear stabilization paths, manageable loan-to-value ratios after current market adjustment, and demonstrated execution track records. The rate environment has reduced competition from bank lenders, creating spread opportunities for private bridge capital that were unavailable during the low-rate compression years."
-      },
-      {
-        heading: "DSCR and the New Underwriting Standard",
-        content: "Debt service coverage ratio analysis has regained prominence as the primary underwriting lens. In the GLINFICO real estate capital program, submissions with documented DSCR calculations at current market rents — not pro forma projections — are processed with priority routing. The market has little patience for optimistic modeling in 2026."
-      }
+      { heading: "The Refinancing Wall", content: "A significant volume of commercial real estate debt originated between 2020 and 2022 was structured with interest rate assumptions that no longer reflect reality. As these loans mature, sponsors face a choice: inject equity to service higher-rate refinancing, sell at compressed valuations, or seek bridge financing while they reposition or stabilize the asset." },
+      { heading: "Where Bridge Capital Fits", content: "Well-structured bridge lending in this environment targets sponsors with clear stabilization paths, manageable loan-to-value ratios after current market adjustment, and demonstrated execution track records. The rate environment has reduced competition from bank lenders, creating spread opportunities for private bridge capital that were unavailable during the low-rate compression years." },
+      { heading: "DSCR and the New Underwriting Standard", content: "Debt service coverage ratio analysis has regained prominence as the primary underwriting lens. In the GLINFICO real estate capital program, submissions with documented DSCR calculations at current market rents — not pro forma projections — are processed with priority routing. The market has little patience for optimistic modeling in 2026." }
+    ]
+  },
+  // --- Editorial Archive Articles ---
+  "personal-finance-101": {
+    slug: "personal-finance-101", section: "Finance", category: "finance", icon: DollarSign,
+    title: "Building Wealth on Any Income: The Framework That Actually Works",
+    subtitle: "Five principles that separate those who accumulate from those who don't, regardless of salary.",
+    readTime: "9 min read", date: "June 1, 2026", author: "Editorial Team", tags: ["Personal Finance", "Wealth"],
+    intro: "Wealth accumulation is less about how much you earn and more about the systems you build. Five principles separate those who compound wealth from those who don't — and income level is rarely the deciding factor.",
+    body: [
+      { heading: "Principle 1: Pay Yourself First", content: "The single most effective wealth-building habit is automating savings before discretionary spending can absorb the capital. High earners who spend reactively accumulate less than moderate earners with enforced savings rates. The mechanism matters more than the amount." },
+      { heading: "Principle 2: Eliminate High-Cost Debt First", content: "Consumer debt with double-digit interest rates is a guaranteed negative-return investment. No diversified portfolio reliably outperforms a 22% credit card APR on an after-tax basis. Aggressive debt elimination is the highest-returning allocation available to most households." },
+      { heading: "Principle 3: Build a Tax-Advantaged Foundation", content: "Employer-matched 401(k) contributions, Roth IRA allocations, and HSA contributions form the bedrock of tax-efficient accumulation. These accounts compound in environments shielded from annual taxation — an advantage that is difficult to replicate in taxable accounts." },
+      { heading: "Principle 4: Diversify Across Asset Classes", content: "No single asset class dominates in every economic cycle. A portfolio spanning equities, fixed income, real assets, and alternative investments dampens volatility while preserving participation in long-term growth. Rebalancing annually enforces the discipline of buying low and trimming high." },
+      { heading: "Principle 5: Increase Your Earning Power", content: "Expense reduction has a floor. Income growth has no ceiling. The highest ROI investment for most working-age individuals is human capital — skills, credentials, and professional networks that increase earning capacity over time. Compound this alongside financial assets for maximum effect." }
+    ]
+  },
+  "inflation-decoded": {
+    slug: "inflation-decoded", section: "Economy", category: "economy", icon: BarChart3,
+    title: "Inflation Decoded: What the Numbers Never Tell You",
+    subtitle: "Why headline CPI misses the picture most consumers and investors actually live in.",
+    readTime: "7 min read", date: "June 2, 2026", author: "Economy Desk", tags: ["Inflation", "CPI", "Macro"],
+    intro: "The Consumer Price Index is the most widely cited economic statistic in America. It is also one of the most misunderstood. Understanding what CPI measures — and what it does not — is essential for any investor, business owner, or policymaker navigating the current environment.",
+    body: [
+      { heading: "What CPI Actually Measures", content: "CPI tracks the weighted average price of a basket of goods and services purchased by urban consumers. The weights are revised periodically, but the basket itself is a compromise — it reflects average consumption patterns, not individual reality. A household spending heavily on healthcare and housing faces a very different inflation experience than the headline number suggests." },
+      { heading: "The Shelter Problem", content: "Housing costs, which represent roughly one-third of CPI, are measured using 'owners' equivalent rent' — a surveyed estimate of what homeowners would pay to rent their own home. This methodology introduces significant lag. Real-world rent inflation appears in CPI data six to twelve months after it occurs in the market." },
+      { heading: "What Investors Should Track Instead", content: "Sophisticated investors supplement CPI with PCE (Personal Consumption Expenditures), PPI (Producer Price Index) as a leading indicator, and category-specific indices for sectors relevant to their portfolios. No single number captures inflation's full texture — the analytical edge comes from reading the composite." }
+    ]
+  },
+  "insurance-gaps": {
+    slug: "insurance-gaps", section: "Insurance", category: "insurance", icon: ShieldCheck,
+    title: "The Insurance Gaps That Could Ruin Your Business Overnight",
+    subtitle: "Most SMBs carry inadequate coverage in exactly the three areas most likely to cause catastrophic loss.",
+    readTime: "8 min read", date: "June 3, 2026", author: "Editorial Team", tags: ["Insurance", "SMB", "Risk"],
+    intro: "Small and mid-sized businesses routinely underinsure in the areas that generate the largest claims. Understanding where coverage gaps commonly occur — and why — is the first step toward building a resilient risk management program.",
+    body: [
+      { heading: "Gap 1: Cyber Liability", content: "General liability policies do not cover cyber incidents. A ransomware attack that locks your systems, a data breach that exposes customer records, or a phishing event that initiates a fraudulent wire transfer are all excluded from standard GL coverage. Standalone cyber policies are no longer optional for any business with digital infrastructure or customer data." },
+      { heading: "Gap 2: Business Interruption", content: "Business interruption insurance covers lost income when a covered physical loss prevents operations. But most policies exclude pandemics, utility failures, and supply chain disruptions — the events most likely to actually interrupt modern operations. Policy language review is essential; the devil is entirely in the exclusions." },
+      { heading: "Gap 3: Employment Practices Liability", content: "EPLI covers claims from employees alleging wrongful termination, discrimination, harassment, or wage violations. General liability excludes these claims entirely. For businesses with even a handful of employees, EPLI is among the highest-probability claims categories. The absence of this coverage is among the most common and costly gaps in SMB insurance programs." }
+    ]
+  },
+  "business-travel-reimagined": {
+    slug: "business-travel-reimagined", section: "Travel", category: "travel", icon: Plane,
+    title: "Business Travel in 2026: How to Spend Less and Arrive Better",
+    subtitle: "Points optimization, premium cabin access, and the new rules of corporate travel policy.",
+    readTime: "6 min read", date: "June 4, 2026", author: "Travel Desk", tags: ["Travel", "Corporate", "Points"],
+    intro: "The economics of business travel have shifted significantly in the post-pandemic era. Airlines have restructured loyalty programs, hotel brands have consolidated, and corporate travel policies are being rewritten. Here is how to navigate the new landscape.",
+    body: [
+      { heading: "The Points Landscape Has Changed", content: "Major airline programs have moved toward revenue-based accrual, diminishing the value of 'mileage runs' and manufactured spend strategies. The new optimization framework focuses on credit card sign-up bonuses, category spend alignment, and transfer partner flexibility. A well-structured card portfolio can generate $5,000-$10,000 in annual travel value for a frequent business traveler." },
+      { heading: "Premium Cabin Access Without Premium Prices", content: "Business class redemptions consistently offer the highest cents-per-point valuations. The key is flexibility — holding points in transferable currencies (Chase Ultimate Rewards, Amex Membership Rewards) and booking award space in the 14-21 day window or 330+ days out, where availability is highest." },
+      { heading: "Corporate Policy in 2026", content: "Progressive travel policies now include sustainability scoring, biometric screening enrollment, and flexible change/cancel provisions as standard requirements. Companies that lock employees into restrictive booking tools forfeit negotiating leverage with carriers and hotels. The best programs balance policy compliance with enough flexibility to optimize cost and traveler wellbeing simultaneously." }
+    ]
+  },
+  "consulting-growth": {
+    slug: "consulting-growth", section: "Business Consulting", category: "consulting", icon: Briefcase,
+    title: "The Five-Question Framework Every Business Owner Needs Before Scaling",
+    subtitle: "Before you hire, expand, or raise capital, answer these. Your growth trajectory depends on it.",
+    readTime: "11 min read", date: "June 5, 2026", author: "Consulting Desk", tags: ["Strategy", "Growth", "SMB"],
+    intro: "Most businesses that struggle during scaling did not fail because of bad execution. They failed because they scaled the wrong thing at the wrong time. A five-question diagnostic framework, applied honestly before committing capital and headcount, changes the outcome probability significantly.",
+    body: [
+      { heading: "Question 1: Is the Core Unit Economics Proven?", content: "Scaling a business with negative or unclear unit economics accelerates losses, not profits. Before expanding, confirm that your customer acquisition cost, lifetime value, and margin structure are not only positive but stable across cohorts. A single profitable month is not proof — look for consistency across twelve months and multiple customer segments." },
+      { heading: "Question 2: Is the Constraint Capital or Capacity?", content: "Many business owners assume capital is the binding constraint when the actual bottleneck is operational capacity — the team, systems, and processes needed to serve more customers well. Injecting capital into a capacity-constrained business produces poor outcomes. Identify the true constraint before deploying growth resources." },
+      { heading: "Question 3: Can the Culture Scale?", content: "Culture is not a poster on the wall — it is the sum of decisions made when no one is watching. Small teams maintain culture through proximity and founder influence. Scaling requires codification: documented values, hiring rubrics, and management rituals that transmit culture without requiring founder presence in every room." },
+      { heading: "Question 4: Is the Market Large Enough?", content: "Total addressable market analysis matters most when you are about to invest significantly in capturing more of it. A business that has reached 30% penetration of its natural market will generate diminishing returns from growth investment. Honest TAM assessment — not optimistic — prevents over-investment in ceilings." },
+      { heading: "Question 5: Do You Have the Right Team for the Next Phase?", content: "The team that builds a business to $2M ARR is rarely the same composition needed to scale it to $20M. Different phases require different skills, risk tolerances, and management styles. The founder's job is to assess this clearly and build the team the next phase demands — not the one that succeeded in the last." }
+    ]
+  },
+  "credit-economy-2026": {
+    slug: "credit-economy-2026", section: "Economy", category: "economy", icon: BarChart3,
+    title: "The Credit Cycle Is Turning: What It Means for Your Portfolio",
+    subtitle: "Rising spreads, tightening conditions, and what history says about the next 18 months.",
+    readTime: "10 min read", date: "June 6, 2026", author: "Markets Desk", tags: ["Credit", "Portfolio", "Macro"],
+    intro: "Credit cycle turns are among the most predictable — and most underreacted-to — signals in macroeconomic analysis. The current configuration of spread widening, covenant tightening, and declining loan officer survey sentiment has historically preceded meaningful credit market repricing within 12-18 months.",
+    body: [
+      { heading: "Reading the Cycle Indicators", content: "The Senior Loan Officer Opinion Survey (SLOOS) has shown three consecutive quarters of net tightening standards for commercial and industrial loans. High-yield spreads have widened approximately 80 basis points from their recent trough. Leveraged loan default rates are rising from historically low bases. These signals, taken together, describe an early-to-mid credit cycle contraction." },
+      { heading: "What History Says", content: "Cycle turns of this configuration — measured from initial spread widening — have typically taken 12-24 months to reach peak stress. The intervening period is characterized by selective credit deterioration (concentrated in over-levered issuers and rate-sensitive sectors) before broadening into systemic repricing. Investors who reduce duration and increase credit quality during this window historically outperform on a risk-adjusted basis." },
+      { heading: "Portfolio Implications", content: "For fixed income allocators, the current environment favors short-duration, high-quality credit over long-duration high-yield. For private market investors, it favors senior secured lending with floating rate structures over subordinated equity-like credit. For equity investors, it argues for reducing exposure to highly-levered balance sheets and increasing allocation to cash-generative businesses with low refinancing risk." }
+    ]
+  },
+  "retirement-planning-2026": {
+    slug: "retirement-planning-2026", section: "Retirement", category: "retirement", icon: DollarSign,
+    title: "Retirement Planning in Uncertain Markets: A 2026 Guide",
+    subtitle: "How to build a resilient retirement portfolio when everything seems volatile.",
+    readTime: "10 min read", date: "June 7, 2026", author: "Retirement Desk", tags: ["Retirement", "Portfolio", "Planning"],
+    intro: "Market volatility does not change the fundamental mechanics of retirement planning — it intensifies the importance of getting them right. A resilient retirement strategy accounts for sequence-of-returns risk, inflation erosion, and longevity in a way that does not require predicting market direction.",
+    body: [
+      { heading: "Sequence-of-Returns Risk Is the Primary Threat", content: "The order in which investment returns occur matters enormously for retirement outcomes. A retiree who experiences a major market decline in the first three years of retirement, while making withdrawals, faces permanently impaired capital that cannot recover even if subsequent returns are strong. Managing this risk — through cash buffers, dynamic withdrawal strategies, or annuitization of base expenses — is the central challenge of retirement portfolio management." },
+      { heading: "The Role of Fixed Income in 2026", content: "After a decade of near-zero yields, fixed income has reasserted its role as a genuine return and income source. Short-to-intermediate duration Treasuries, TIPS, and high-quality corporates now offer yields that meaningfully contribute to portfolio income without requiring equity-like risk. A barbell approach — combining safe yield with growth equity — has reemerged as a practical retirement framework." },
+      { heading: "Longevity Planning", content: "A 65-year-old couple today has approximately a 50% probability that at least one partner lives to age 90, and a meaningful probability of reaching 95. Planning for a 30-year retirement is not conservative — it is statistically appropriate. Strategies that frontload spending and underestimate longevity are the most common planning error among pre-retirees." }
+    ]
+  },
+  "401k-maximization": {
+    slug: "401k-maximization", section: "Retirement", category: "retirement", icon: DollarSign,
+    title: "Maxing Your 401(k) in 2026: New Limits, New Strategies",
+    subtitle: "Contribution limits changed again — here is how to take full advantage at every income level.",
+    readTime: "8 min read", date: "June 8, 2026", author: "Retirement Desk", tags: ["401k", "Tax", "Retirement"],
+    intro: "The 2026 401(k) contribution limit increase creates meaningful new planning opportunities — but only for those who understand how to layer contribution types, Roth conversion strategies, and employer match optimization into a coherent annual playbook.",
+    body: [
+      { heading: "2026 Contribution Limits", content: "The IRS increased the 401(k) elective deferral limit to $23,500 for 2026 (up from $23,000 in 2025). Catch-up contributions for participants aged 50-59 and 64+ remain at $7,500. A new provision introduced in the SECURE 2.0 Act allows participants aged 60-63 to make enhanced catch-up contributions of $11,250 — a significant opportunity for late-stage accumulators." },
+      { heading: "Roth vs. Traditional: The 2026 Decision Framework", content: "The Roth-versus-traditional decision hinges on your current versus expected future marginal tax rate. High earners in peak earning years generally benefit from traditional pre-tax contributions. Those in lower brackets — including early-career workers and those in transitional income years — typically benefit from Roth contributions. The decision is not static and should be revisited annually." },
+      { heading: "After-Tax Contributions and Mega Backdoor Roth", content: "Many 401(k) plans permit after-tax contributions beyond the elective deferral limit, up to the total defined contribution limit of $70,000 in 2026. When combined with in-plan Roth conversion or in-service distributions, this creates a 'mega backdoor Roth' strategy that allows high earners to shelter substantially more in tax-free growth accounts than standard limits permit." }
     ]
   }
 };
 
 const categoryColors = {
-  markets: "bg-blue-500/20 text-blue-300 border border-blue-500/30",
-  venture: "bg-purple-500/20 text-purple-300 border border-purple-500/30",
-  wealth: "bg-green-500/20 text-green-300 border border-green-500/30",
+  markets:    "bg-blue-500/20 text-blue-300 border border-blue-500/30",
+  venture:    "bg-purple-500/20 text-purple-300 border border-purple-500/30",
+  wealth:     "bg-green-500/20 text-green-300 border border-green-500/30",
+  finance:    "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
+  economy:    "bg-blue-500/20 text-blue-300 border border-blue-500/30",
+  insurance:  "bg-violet-500/20 text-violet-300 border border-violet-500/30",
+  travel:     "bg-amber-500/20 text-amber-300 border border-amber-500/30",
+  consulting: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
+  retirement: "bg-teal-500/20 text-teal-300 border border-teal-500/30",
 };
 
 const categoryIcon = { finance: DollarSign, economy: BarChart3, insurance: ShieldCheck, travel: Plane, consulting: Briefcase, markets: BarChart3, venture: Briefcase, wealth: Globe2, funding: DollarSign, "real-estate": TrendingUp };
