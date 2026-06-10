@@ -27,6 +27,7 @@ import Home from '@/pages/Home';
 import MagazineHome from '@/pages/MagazineHome';
 import MagazineArticle from '@/pages/MagazineArticle';
 import MagazineArchive from '@/pages/MagazineArchive';
+import MagazineProfile from '@/pages/MagazineProfile';
 
 const AuthenticatedApp = () => {
   return (
@@ -52,6 +53,7 @@ const AuthenticatedApp = () => {
       <Route path="/magazine" element={<MagazineHome />} />
       <Route path="/magazine/archive" element={<MagazineArchive />} />
       <Route path="/magazine/article/:slug" element={<MagazineArticle />} />
+      <Route path="/magazine/profile" element={<MagazineProfile />} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>
