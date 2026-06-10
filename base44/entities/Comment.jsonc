@@ -1,0 +1,27 @@
+{
+  "name": "Comment",
+  "type": "object",
+  "properties": {
+    "article_slug": {
+      "type": "string",
+      "description": "The slug of the article this comment belongs to"
+    },
+    "author_name": {
+      "type": "string",
+      "description": "Display name of the commenter"
+    },
+    "content": {
+      "type": "string",
+      "description": "The comment text"
+    },
+    "likes": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "article_slug",
+    "author_name",
+    "content"
+  ]
+}

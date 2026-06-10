@@ -6,6 +6,7 @@ import MagazineFooter from "@/components/magazine/MagazineFooter";
 import MagazineLogo from "@/components/magazine/MagazineLogo";
 import SubscribePanel from "@/components/magazine/SubscribePanel";
 import { ArrowLeft, Clock, BookOpen, Share2, BarChart3, Briefcase, Globe2, TrendingUp, Landmark, DollarSign, ShieldCheck, Plane, ExternalLink, Play } from "lucide-react";
+import ArticleComments from "@/components/magazine/ArticleComments";
 import { motion } from "framer-motion";
 
 const articles = {
@@ -490,6 +491,7 @@ export default function MagazineArticle() {
         </div>
       </section>
 
+      <ArticleComments articleSlug={slug} />
       <SubscribePanel />
       <MagazineFooter />
     </main>
