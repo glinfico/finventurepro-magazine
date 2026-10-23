@@ -62,7 +62,7 @@ Return ONLY a valid JSON object in this exact structure:
 
 Do not include markdown code fences. Return only the JSON.`;
 
-    const aiRes = await base44.integrations.Core.InvokeLLM({ add_context_from_internet: true, prompt, response_json_schema: {
+    const aiRes = await base44.integrations.Core.InvokeLLM({ model: "gemini_3_flash", add_context_from_internet: true, prompt, response_json_schema: {
       type: "object",
       properties: {
         title: { type: "string" },
