@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
 
   for (const topic of TOPICS) {
     if (existingCategories.has(topic.category)) continue;
-    const prompt = `You are an elite financial journalist writing for FinVenturePro, a premium capital-markets intelligence publication read by investors, family offices, and professional capital allocators.
+    const prompt = `You are an elite financial journalist writing for Capital Raise Digest, a premium capital-markets intelligence publication read by investors, family offices, and professional capital allocators.
 
 Write one ORIGINAL, current, fact-checked financial article dated ${today} on: ${topic.section}.
 Focus on: ${topic.tags.join(', ')}.
