@@ -2,13 +2,13 @@ import React, { useId } from "react";
 
 export default function MagazineLogo({ size = "md" }) {
   const uid = useId().replace(/:/g, "_");
-  const gradId = `fvpGrad_${uid}`;
+  const gradId = `crdGrad_${uid}`;
 
   const cfg = {
-    sm: { badge: 36, fvp: 9,  name: "15px", sub: "8px",  gap: 10 },
-    md: { badge: 44, fvp: 10, name: "18px", sub: "9px",  gap: 12 },
-    lg: { badge: 60, fvp: 13, name: "28px", sub: "11px", gap: 14 },
-  }[size] || { badge: 44, fvp: 10, name: "18px", sub: "9px", gap: 12 };
+    sm: { badge: 36, crd: 9,  name: "12px", sub: "7px",  gap: 10 },
+    md: { badge: 44, crd: 10, name: "15px", sub: "8px",  gap: 12 },
+    lg: { badge: 60, crd: 13, name: "22px", sub: "10px", gap: 14 },
+  }[size] || { badge: 44, crd: 10, name: "15px", sub: "8px", gap: 12 };
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: cfg.gap, userSelect: "none" }}>
@@ -34,17 +34,17 @@ export default function MagazineLogo({ size = "md" }) {
         <rect x="5" y="5" width="34" height="34" rx="8" fill="#2563EB" fillOpacity="0.45" transform="rotate(6 22 22)" />
         {/* Main badge */}
         <rect x="6" y="6" width="32" height="32" rx="7" fill={`url(#${gradId})`} />
-        {/* FVP lettering */}
+        {/* CRD lettering */}
         <text
           x="22" y="27"
           textAnchor="middle"
           fill="white"
           fontFamily="Inter, ui-sans-serif, sans-serif"
           fontWeight="900"
-          fontSize={cfg.fvp}
+          fontSize={cfg.crd}
           letterSpacing="-0.5"
         >
-          FVP
+          CRD
         </text>
       </svg>
 
@@ -53,12 +53,12 @@ export default function MagazineLogo({ size = "md" }) {
         <span style={{
           fontFamily: "'Instrument Serif', Georgia, 'Times New Roman', serif",
           fontSize: cfg.name,
-          letterSpacing: "0.12em",
+          letterSpacing: "0.02em",
           color: "#ffffff",
           lineHeight: 1,
           display: "block",
         }}>
-          FinVenturePro
+          Capital Raise Digest
         </span>
         <span style={{
           fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
@@ -71,7 +71,7 @@ export default function MagazineLogo({ size = "md" }) {
           textTransform: "uppercase",
           display: "block",
         }}>
-          Intelligence
+          Capital Markets
         </span>
       </div>
     </div>
