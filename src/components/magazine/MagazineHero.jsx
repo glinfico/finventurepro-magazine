@@ -30,7 +30,7 @@ export default function MagazineHero() {
             money forward.
           </h1>
           <p className="mt-7 max-w-xl text-lg leading-8 text-slate-400">
-            FinVenturePro covers Finance, Economy, Insurance, Travel, and Business Consulting — sharp analysis for people who make decisions that matter.
+            Capital Raise Digest covers Finance, Economy, Insurance, Travel, and Business Consulting — source-linked reporting and evidence-led analysis for people who make decisions that matter.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg" className="rounded-full px-7 bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/30">
