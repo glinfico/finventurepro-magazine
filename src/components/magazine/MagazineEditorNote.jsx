@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Feather } from "lucide-react";
 
 const lines = [
-  "FinVenturePro was built on a single conviction: the best-informed decision-makers in capital markets do not need more information. They need better signal. Every article we publish is evaluated on one criterion — does this change how a serious operator thinks about allocation?",
+  "Capital Raise Digest was built on a single conviction: the best-informed decision-makers in capital markets do not need more information. They need better signal. Every article we publish is evaluated on one criterion — does this change how a serious operator thinks about allocation?",
   "This issue focuses on structural themes rather than calendar noise. The private market operating system, the credit repricing cycle, the founder-led fund model — these are multi-year dynamics that will compound regardless of what the central bank does on any given Wednesday.",
   "We are also expanding our Funding Intelligence section in partnership with GLINFICO Research to cover alternative lending, commercial real estate capital, and M&A financing with the same analytical rigor we apply to institutional markets.",
 ];
@@ -27,7 +27,7 @@ export default function MagazineEditorNote() {
           </div>
           <div className="space-y-5 text-slate-400 leading-8">
             {lines.map((line, i) => <p key={i}>{line}</p>)}
-            <p className="font-semibold text-slate-300">— The FinVenturePro Editorial Team</p>
+            <p className="font-semibold text-slate-300">— The Capital Raise Digest Editorial Team</p>
           </div>
         </motion.div>
       </div>
