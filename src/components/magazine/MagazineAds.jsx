@@ -38,7 +38,7 @@ const adSlots = [
     unit: "/issue",
     badge: "CURATED AUDIENCE",
     badgeColor: "bg-cyan-500/20 text-cyan-300 border-cyan-500/30",
-    description: "Exclusive sponsorship inside the FinVenturePro weekly intelligence brief.",
+    description: "Exclusive sponsorship inside the Capital Raise Digest weekly intelligence brief.",
     specs: "Logo + headline + 120-word sponsor copy block",
     impressions: "~6,500 subscribers/issue",
   },
@@ -163,7 +163,7 @@ export default function MagazineAds() {
           </div>
           <h2 className="font-display text-4xl tracking-[-0.05em] text-white sm:text-5xl">Reach 25,000+ serious readers.</h2>
           <p className="mt-4 max-w-2xl text-slate-400 leading-7">
-            FinVenturePro readers are business owners, investors, and decision-makers actively managing money. Six open placements — all priced transparently.
+            Capital Raise Digest readers are business owners, investors, and decision-makers actively managing money. Six open placements — all priced transparently.
           </p>
         </motion.div>
 
