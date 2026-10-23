@@ -37,8 +37,10 @@ Deno.serve(async (req) => {
     if (existingCategories.has(topic.category)) continue;
     const prompt = `You are an elite financial journalist writing for FinVenturePro, a premium capital-markets intelligence publication read by investors, family offices, and professional capital allocators.
 
-Write one ORIGINAL, insightful article published today (${today}) on the topic of: ${topic.section}.
+Write one ORIGINAL, current, fact-checked financial article dated ${today} on: ${topic.section}.
 Focus on: ${topic.tags.join(', ')}.
+
+Use the live web context available to check current developments and factual claims. Prefer current primary sources (official releases, filings, central banks, regulators) and established financial news reporting including Bloomberg where accessible. Do not claim to have used a source you did not actually inspect. Do not invent dates, figures, quotes, links, or source names. If a claim cannot be verified from the available context, omit it or clearly qualify it. Write original analysis and paraphrase; do not copy full paragraphs, images, or proprietary Bloomberg story text.
 
 Return ONLY a valid JSON object in this exact structure:
 {
@@ -52,12 +54,15 @@ Return ONLY a valid JSON object in this exact structure:
   ],
   "read_time": "X min read",
   "author": "Author desk name",
-  "image_prompt": "A concise original financial editorial photo concept, with no text or logos"
+  "image_prompt": "A concise original financial editorial photo concept, with no text or logos",
+  "sources": [
+    { "title": "Exact source article or document title", "publisher": "Publisher or issuing organization", "url": "Exact URL actually used" }
+  ]
 }
 
 Do not include markdown code fences. Return only the JSON.`;
 
-    const aiRes = await base44.integrations.Core.InvokeLLM({ prompt, response_json_schema: {
+    const aiRes = await base44.integrations.Core.InvokeLLM({ add_context_from_internet: true, prompt, response_json_schema: {
       type: "object",
       properties: {
         title: { type: "string" },
@@ -66,9 +71,21 @@ Do not include markdown code fences. Return only the JSON.`;
         body: { type: "array", items: { type: "object", properties: { heading: { type: "string" }, content: { type: "string" } }, required: ["heading", "content"] } },
         read_time: { type: "string" },
         author: { type: "string" },
-        image_prompt: { type: "string" }
+        image_prompt: { type: "string" },
+        sources: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              title: { type: "string" },
+              publisher: { type: "string" },
+              url: { type: "string" }
+            },
+            required: ["title", "publisher", "url"]
+          }
+        }
       },
-      required: ["title", "subtitle", "intro", "body", "read_time", "author", "image_prompt"]
+      required: ["title", "subtitle", "intro", "body", "read_time", "author", "image_prompt", "sources"]
     }});
 
     const slug = aiRes.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-' + today;
@@ -92,6 +109,7 @@ Do not include markdown code fences. Return only the JSON.`;
       category: topic.category,
       tags: topic.tags,
       image_url: imageUrl,
+      sources_json: JSON.stringify((Array.isArray(aiRes.sources) ? aiRes.sources : []).filter(source => /^https?:\/\//i.test(source.url || "")).slice(0, 8)),
       intro: aiRes.intro,
       body_json: JSON.stringify(aiRes.body),
       author: aiRes.author,
