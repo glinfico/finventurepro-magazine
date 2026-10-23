@@ -166,7 +166,7 @@ export default function MagazineAds() {
           })}
         </div>
 
-        {/* Stripe Checkout form */}
+        {/* PayPal subscription checkout form */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="mx-auto max-w-2xl rounded-2xl border border-slate-700/60 bg-slate-900/60 p-8 sm:p-10">
           <div className="mb-6 flex items-center gap-3">
@@ -198,11 +198,11 @@ export default function MagazineAds() {
             <Button type="submit" disabled={!selected || loading || !form.advertiser_name || !form.advertiser_email}
               className="w-full rounded-full h-12 gap-2 bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20">
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <CreditCard className="h-4 w-4" />}
-              {loading ? "Redirecting to Stripe..." : selected ? `Pay $${selected.price.toLocaleString()}${selected.unit} via Stripe` : "Select a slot to continue"}
+              {loading ? "Redirecting to PayPal..." : selected ? `Continue with PayPal — ${selected.price.toLocaleString()}${selected.unit}` : "Select a slot to continue"}
             </Button>
 
             <p className="text-center text-xs text-slate-600">
-              Secure payment via Stripe · Monthly subscription · Cancel any time
+              Secure advertising checkout via PayPal · Recurring placement plan
             </p>
           </form>
         </motion.div>
