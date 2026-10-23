@@ -9,6 +9,15 @@ const TOPICS = [
   { section: "Retirement", category: "retirement", tags: ["Retirement Planning", "401k", "IRA", "Social Security", "Pension", "Passive Income"] },
 ];
 
+const CATEGORY_IMAGE_FALLBACKS = {
+  finance: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
+  economy: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
+  insurance: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80",
+  travel: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&q=80",
+  consulting: "https://images.unsplash.com/photo-1553484771-047a44eee27b?w=1200&q=80",
+  retirement: "https://images.unsplash.com/photo-1559526324-593bc0738d25?w=1200&q=80",
+};
+
 Deno.serve(async (req) => {
   const base44 = createClientFromRequest(req);
   const user = await base44.auth.me();
@@ -36,7 +45,8 @@ Return ONLY a valid JSON object in this exact structure:
     { "heading": "Section heading", "content": "3-4 sentence substantive paragraph" }
   ],
   "read_time": "X min read",
-  "author": "Author desk name"
+  "author": "Author desk name",
+  "image_prompt": "A concise original financial editorial photo concept, with no text or logos"
 }
 
 Do not include markdown code fences. Return only the JSON.`;
@@ -49,12 +59,24 @@ Do not include markdown code fences. Return only the JSON.`;
         intro: { type: "string" },
         body: { type: "array", items: { type: "object", properties: { heading: { type: "string" }, content: { type: "string" } }, required: ["heading", "content"] } },
         read_time: { type: "string" },
-        author: { type: "string" }
+        author: { type: "string" },
+        image_prompt: { type: "string" }
       },
-      required: ["title", "subtitle", "intro", "body", "read_time", "author"]
+      required: ["title", "subtitle", "intro", "body", "read_time", "author", "image_prompt"]
     }});
 
     const slug = aiRes.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-' + today;
+
+    // Use an original generated editorial image when available; never reuse a news outlet's copyrighted photo.
+    let imageUrl = CATEGORY_IMAGE_FALLBACKS[topic.category] || CATEGORY_IMAGE_FALLBACKS.finance;
+    try {
+      const generatedImage = await base44.integrations.Core.GenerateImage({
+        prompt: aiRes.image_prompt + ". Original financial editorial photography, premium magazine art direction, realistic, no written text, no logos."
+      });
+      if (generatedImage?.url) imageUrl = generatedImage.url;
+    } catch (imageError) {
+      console.error("Article image generation failed; using category fallback.", topic.category);
+    }
 
     const article = await base44.asServiceRole.entities.Article.create({
       slug,
@@ -63,6 +85,7 @@ Do not include markdown code fences. Return only the JSON.`;
       section: topic.section,
       category: topic.category,
       tags: topic.tags,
+      image_url: imageUrl,
       intro: aiRes.intro,
       body_json: JSON.stringify(aiRes.body),
       author: aiRes.author,
