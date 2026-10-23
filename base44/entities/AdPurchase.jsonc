@@ -52,13 +52,13 @@
         "paypal"
       ]
     },
-    "paypal_subscription_id": {
+    "paypal_order_id": {
       "type": "string"
     },
-    "paypal_plan_id": {
+    "paypal_capture_id": {
       "type": "string"
     },
-    "paypal_subscription_status": {
+    "paypal_order_status": {
       "type": "string"
     }
   },
