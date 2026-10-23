@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Megaphone, Star, Zap, Globe, Mail, BarChart3, CheckCircle2, CreditCard, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -85,6 +85,34 @@ export default function MagazineAds() {
   const [form, setForm] = useState({ advertiser_name: "", advertiser_email: "", ad_headline: "", ad_link: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get("token");
+    if (params.get("ad_cancelled") === "1") setNotice("Checkout was cancelled. No advertising payment was taken.");
+    if (!orderId || params.get("ad_success") !== "1") return;
+
+    let mounted = true;
+    setNotice("Confirming your PayPal payment…");
+    base44.functions.invoke("captureAdCheckout", { order_id: orderId })
+      .then((response) => {
+        if (!mounted) return;
+        if (response?.data?.success) setNotice("PayPal payment confirmed. Your advertising booking is recorded.");
+        else setNotice(response?.data?.error || "PayPal has not confirmed the payment. Please contact the advertising desk before retrying.");
+      })
+      .catch(() => {
+        if (mounted) setNotice("We could not confirm the PayPal payment yet. Please contact the advertising desk before paying again.");
+      })
+      .finally(() => {
+        if (!mounted) return;
+        params.delete("token");
+        params.delete("PayerID");
+        const query = params.toString();
+        window.history.replaceState({}, "", window.location.pathname + (query ? "?" + query : "") + window.location.hash);
+      });
+    return () => { mounted = false; };
+  }, []);
 
   const handleCheckout = async (e) => {
     e.preventDefault();
@@ -186,6 +214,8 @@ export default function MagazineAds() {
             </div>
           </div>
 
+          {notice && <p role="status" className="mb-4 rounded-xl border border-blue-400/20 bg-blue-400/10 p-3 text-sm text-blue-100">{notice}</p>}
+
           <form onSubmit={handleCheckout} className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <Input placeholder="Company / Brand name *" value={form.advertiser_name} onChange={e => setForm({ ...form, advertiser_name: e.target.value })} required
@@ -207,7 +237,7 @@ export default function MagazineAds() {
             </Button>
 
             <p className="text-center text-xs text-slate-600">
-              Secure advertising checkout via PayPal · Recurring placement plan
+              Secure PayPal checkout · One-time payment for the displayed placement period
             </p>
           </form>
         </motion.div>
