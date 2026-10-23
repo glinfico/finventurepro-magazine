@@ -99,22 +99,27 @@ export default function MagazineAds() {
     setError("");
     const origin = window.location.origin;
 
-    const res = await base44.functions.invoke("createAdCheckout", {
-      position: selected.position,
-      advertiser_name: form.advertiser_name,
-      advertiser_email: form.advertiser_email,
-      ad_headline: form.ad_headline,
-      ad_link: form.ad_link,
-      slot_label: selected.label,
-      price_monthly: selected.price,
-      success_url: `${origin}/magazine?ad_success=1`,
-      cancel_url: `${origin}/magazine?ad_cancelled=1`,
-    });
+    try {
+      const res = await base44.functions.invoke("createAdCheckout", {
+        position: selected.position,
+        advertiser_name: form.advertiser_name,
+        advertiser_email: form.advertiser_email,
+        ad_headline: form.ad_headline,
+        ad_link: form.ad_link,
+        slot_label: selected.label,
+        price_monthly: selected.price,
+        success_url: origin + "/magazine?ad_success=1",
+        cancel_url: origin + "/magazine?ad_cancelled=1",
+      });
 
-    if (res.data?.url) {
-      window.location.href = res.data.url;
-    } else {
-      setError(res.data?.error || "Something went wrong. Please try again.");
+      if (res.data?.url) {
+        window.location.assign(res.data.url);
+        return;
+      }
+      setError(res.data?.error || "PayPal checkout could not be started. Please try again.");
+    } catch (checkoutError) {
+      setError("PayPal checkout is temporarily unavailable. Please check the PayPal setup or contact the advertising desk.");
+    } finally {
       setLoading(false);
     }
   };
