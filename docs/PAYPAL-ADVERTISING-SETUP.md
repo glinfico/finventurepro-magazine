@@ -1,45 +1,33 @@
-# PayPal advertising checkout setup
+# CRD advertising checkout — reuse the FOD PayPal Orders API
 
-This change routes **magazine advertising** through PayPal. It does not remove Stripe from other GLINFICO products or subscription flows. The old Stripe webhook remains in the repository to process any legacy Stripe advertising events already in flight.
+CRD magazine advertising now follows the same PayPal Orders API pattern already used by FOD. It uses the same PayPal REST API credentials **by environment variable name**; it does not hardcode the account, Client ID, or secret.
 
-## Required PayPal configuration
+## Payment model
 
-Configure these values in the Base44 function secrets for the FinVenturePro Magazine app:
+Each click creates a **one-time payment** for the displayed placement period (one month for monthly placements, or one issue for the newsletter slot). There is no automatic renewal in this Orders API flow. The advertiser books and pays for another period when needed.
+
+This differs from a recurring PayPal Billing Subscription. The currently inspected FOD `paypalCheckout` creates an Order using `/v2/checkout/orders` and `intent: CAPTURE`; it does not create a recurring subscription or include an order-capture endpoint in that file. CRD therefore includes a capture endpoint so payment is not marked paid merely because the customer returned from PayPal.
+
+## Required runtime configuration
+
+In the magazine backend runtime, reuse the PayPal app credentials that are authorized for GLINFICO's account:
 
 - `PAYPAL_CLIENT_ID`
 - `PAYPAL_CLIENT_SECRET`
-- `PAYPAL_MODE` — use `sandbox` while testing; set to `live` only after approval testing.
-- `PAYPAL_AD_PLAN_HERO`
-- `PAYPAL_AD_PLAN_MID_ARTICLE`
-- `PAYPAL_AD_PLAN_NEWSLETTER`
-- `PAYPAL_AD_PLAN_SIDEBAR`
-- `PAYPAL_AD_PLAN_FOOTER`
-- `PAYPAL_AD_PLAN_CATEGORY`
-- `PAYPAL_AD_WEBHOOK_ID`
-- `AD_CHECKOUT_ALLOWED_ORIGINS` — comma-separated exact HTTPS origins for the published magazine domains.
+- `PAYPAL_MODE=sandbox` for testing; use `live` only after a successful sandbox test and configuration review.
+- `AD_CHECKOUT_ALLOWED_ORIGINS` with the exact production HTTPS origins.
 
-Each `PAYPAL_AD_PLAN_*` value must be an **active PayPal billing plan ID** with a USD fixed price matching the price displayed in `MagazineAds.jsx`. Configure the correct recurring interval in PayPal itself; the newsletter slot is priced per issue, so its billing cycle must match the way that placement is sold.
+Credentials must remain in the backend secrets/environment, never in frontend code or GitHub. The values need to be configured in the runtime used by the magazine functions; having them in FOD does not itself prove that a separate runtime can read them.
 
-## Webhook configuration
+## Functions
 
-Register the Base44 `paypalAdWebhook` function as a PayPal webhook listener and subscribe it to at least:
+- `createAdCheckout` validates the placement and creates a PayPal Orders API order.
+- `captureAdCheckout` finds the pending purchase, verifies the PayPal order/amount/custom ID against the saved booking, captures it, and only marks it paid after PayPal reports a completed capture.
 
-- `BILLING.SUBSCRIPTION.ACTIVATED`
-- `BILLING.SUBSCRIPTION.CANCELLED`
-- `BILLING.SUBSCRIPTION.EXPIRED`
-- `BILLING.SUBSCRIPTION.SUSPENDED`
-- `PAYMENT.SALE.COMPLETED`
-- `PAYMENT.SALE.DENIED`
+## Test checklist
 
-Store the webhook ID in `PAYPAL_AD_WEBHOOK_ID`. The function verifies each webhook signature before updating the advertising purchase record.
-
-## Release checklist
-
-1. Configure sandbox credentials, active sandbox plans, and the sandbox webhook ID.
-2. Verify a successful PayPal approval updates the corresponding `AdPurchase` record to `paid`.
-3. Verify cancellation and denied-payment events update the purchase status correctly.
-4. Test every placement and check that the plan amount matches the displayed price.
-5. Confirm redirects on both success and cancellation.
-6. Only then switch `PAYPAL_MODE` to `live` and configure live credentials, live plans, and the live webhook ID.
-
-Do not commit PayPal credentials or plan secrets into the repository.
+1. Run an end-to-end test in PayPal Sandbox.
+2. Test success, cancellation, repeat return/capture, and a failed/unapproved order.
+3. Confirm the saved purchase amount and PayPal capture ID.
+4. Confirm each displayed price describes exactly the booked period.
+5. Configure live credentials in the actual backend runtime and test a small live payment only after review.
