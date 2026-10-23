@@ -47,7 +47,7 @@ export default function MagazineSubscribe() {
               </div>
               <h2 className="font-display text-4xl tracking-[-0.05em] text-white">You're in.</h2>
               <p className="mt-4 text-slate-400 max-w-md mx-auto">
-                The FinVenturePro intelligence brief lands in your inbox every Friday. Free, always.
+                The Capital Raise Digest intelligence brief lands in your inbox every Friday. Free, always.
               </p>
             </div>
           ) : (
