@@ -7,7 +7,7 @@ function paypalBase() {
 }
 function allowedOrigins() {
   return (Deno.env.get("AD_CHECKOUT_ALLOWED_ORIGINS") ||
-    "https://finventurepro-magazine.vercel.app,https://crd.glinfico.com,https://finventurepromagazine.com")
+    "https://finventurepro-magazine.vercel.app,https://bcd.glinfico.com,https://finventurepromagazine.com")
     .split(",").map((value) => value.trim()).filter(Boolean);
 }
 async function getPayPalToken(base) {
