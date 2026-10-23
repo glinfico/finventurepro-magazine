@@ -2,8 +2,6 @@ import React from "react";
 import MagazineHeader from "@/components/magazine/MagazineHeader";
 import MagazineHero from "@/components/magazine/MagazineHero";
 import FeaturedArticle from "@/components/magazine/FeaturedArticle";
-import IssueHighlights from "@/components/magazine/IssueHighlights";
-import MarketSignal from "@/components/magazine/MarketSignal";
 import MagazineLatestGrid from "@/components/magazine/MagazineLatestGrid";
 import MagazineEditorNote from "@/components/magazine/MagazineEditorNote";
 import MagazineConsulting from "@/components/magazine/MagazineConsulting";
@@ -14,16 +12,15 @@ import MagazineFooter from "@/components/magazine/MagazineFooter";
 
 export default function MagazineHome() {
   return (
-    <main className="min-h-screen bg-[#070D18] text-foreground overflow-hidden pb-14">
-      {/* FOD sticky banner */}
-      <div className="fixed bottom-0 inset-x-0 z-40 bg-blue-950/95 backdrop-blur border-t border-blue-500/20 py-2.5 px-5">
-        <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
-          <p className="text-sm font-semibold text-primary-foreground hidden sm:block">
-            Need capital? GLINFICO Financial Operations Division — fast access to MCA, real estate, and M&amp;A funding.
+    <main className="min-h-screen overflow-hidden bg-[#070D18] pb-14 text-white">
+      <div className="fixed bottom-0 inset-x-0 z-40 border-t border-blue-500/20 bg-blue-950/95 px-5 py-2.5 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+          <p className="hidden text-sm font-semibold text-white sm:block">
+            Need capital? GLINFICO Financial Operations Division — MCA, real estate, and M&amp;A funding.
           </p>
-          <p className="text-sm font-semibold text-primary-foreground sm:hidden">GLINFICO FOD — Fast capital access.</p>
+          <p className="text-sm font-semibold text-white sm:hidden">GLINFICO FOD — Capital access.</p>
           <a href="https://fod.glinfico.com" target="_blank" rel="noopener noreferrer"
-            className="shrink-0 flex items-center gap-1.5 rounded-full bg-primary-foreground px-4 py-1.5 text-xs font-bold text-primary hover:opacity-90 transition-opacity">
+            className="shrink-0 rounded-full bg-white px-4 py-1.5 text-xs font-bold text-blue-950 transition-opacity hover:opacity-90">
             fod.glinfico.com →
           </a>
         </div>
@@ -31,8 +28,6 @@ export default function MagazineHome() {
       <MagazineHeader />
       <MagazineHero />
       <FeaturedArticle />
-      <IssueHighlights />
-      <MarketSignal />
       <MagazineLatestGrid />
       <ArticlesFeed />
       <MagazineEditorNote />
