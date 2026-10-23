@@ -62,7 +62,9 @@ Deno.serve(async (req) => {
     let subscriptionId = resource.id;
     let nextStatus = null;
 
-    if (eventType === "BILLING.SUBSCRIPTION.ACTIVATED" || eventType === "PAYMENT.SALE.COMPLETED") {
+    if (eventType === "BILLING.SUBSCRIPTION.ACTIVATED") {
+      nextStatus = "pending";
+    } else if (eventType === "PAYMENT.SALE.COMPLETED") {
       nextStatus = "paid";
       if (eventType === "PAYMENT.SALE.COMPLETED") {
         subscriptionId = resource.billing_agreement_id || resource.subscription_id;
