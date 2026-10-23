@@ -48,7 +48,7 @@ export default function MagazineFooter() {
           </div>
         </div>
         <div className="border-t border-slate-800/60 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-          <span>© 2026 FinVenturePro · A GLINFICO Publication · All rights reserved.</span>
+          <span>© 2026 Capital Raise Digest · A GLINFICO Publication · All rights reserved.</span>
           <span>Free to read. Always.</span>
         </div>
       </div>
