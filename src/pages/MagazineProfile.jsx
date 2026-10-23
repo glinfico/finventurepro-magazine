@@ -105,7 +105,7 @@ export default function MagazineProfile() {
                     <h1 className="text-2xl font-bold text-white">{user.full_name || "Reader"}</h1>
                     <p className="text-slate-400 flex items-center gap-1.5 mt-1"><Mail className="h-3.5 w-3.5" /> {user.email}</p>
                     <span className="mt-2 inline-block rounded-full bg-blue-500/15 border border-blue-500/30 px-3 py-0.5 text-xs font-semibold text-blue-300">
-                      {user.role === "admin" ? "Editor / Admin" : "FinVenturePro Reader"}
+                      {user.role === "admin" ? "Editor / Admin" : "Capital Raise Digest Reader"}
                     </span>
                   </div>
                 </div>
