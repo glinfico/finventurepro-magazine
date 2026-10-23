@@ -27,7 +27,7 @@ export default function SubscribePanel() {
           </form>
           {submitted && (
             <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-background/10 px-4 py-2 text-sm">
-              <CheckCircle2 className="h-4 w-4" /> You’re on the FinVenturePro list.
+              <CheckCircle2 className="h-4 w-4" /> You’re on the Capital Raise Digest list.
             </div>
           )}
         </div>
