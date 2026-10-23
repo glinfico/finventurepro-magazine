@@ -26,9 +26,15 @@ Deno.serve(async (req) => {
   }
 
   const today = new Date().toISOString().split('T')[0];
+  const existingArticles = await base44.asServiceRole.entities.Article.filter({ published_date: today });
+  if (existingArticles.length >= TOPICS.length) {
+    return Response.json({ success: true, skipped: true, articles_created: 0, message: "Today's edition already exists." });
+  }
+  const existingCategories = new Set(existingArticles.map((article) => article.category));
   const results = [];
 
   for (const topic of TOPICS) {
+    if (existingCategories.has(topic.category)) continue;
     const prompt = `You are an elite financial journalist writing for FinVenturePro, a premium capital-markets intelligence publication read by investors, family offices, and professional capital allocators.
 
 Write one ORIGINAL, insightful article published today (${today}) on the topic of: ${topic.section}.
