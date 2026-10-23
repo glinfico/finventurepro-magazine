@@ -44,6 +44,22 @@
     },
     "campaign_start": {
       "type": "string"
+    },
+    "payment_provider": {
+      "type": "string",
+      "enum": [
+        "stripe",
+        "paypal"
+      ]
+    },
+    "paypal_subscription_id": {
+      "type": "string"
+    },
+    "paypal_plan_id": {
+      "type": "string"
+    },
+    "paypal_subscription_status": {
+      "type": "string"
     }
   },
   "required": [
