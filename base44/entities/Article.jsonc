@@ -57,6 +57,10 @@
     "is_published": {
       "type": "boolean",
       "default": true
+    },
+    "sources_json": {
+      "type": "string",
+      "description": "JSON array of source title, publisher, and URL objects used for factual reporting"
     }
   },
   "required": [
