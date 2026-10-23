@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Megaphone, Star, Zap, Globe, Mail, BarChart3, CheckCircle2, CreditCard, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -85,6 +85,34 @@ export default function MagazineAds() {
   const [form, setForm] = useState({ advertiser_name: "", advertiser_email: "", ad_headline: "", ad_link: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get("token");
+    if (params.get("ad_cancelled") === "1") setNotice("Checkout was cancelled. No advertising payment was taken.");
+    if (!orderId || params.get("ad_success") !== "1") return;
+
+    let mounted = true;
+    setNotice("Confirming your PayPal payment…");
+    base44.functions.invoke("captureAdCheckout", { order_id: orderId })
+      .then((response) => {
+        if (!mounted) return;
+        if (response?.data?.success) setNotice("PayPal payment confirmed. Your advertising booking is recorded.");
+        else setNotice(response?.data?.error || "PayPal has not confirmed the payment. Please contact the advertising desk before retrying.");
+      })
+      .catch(() => {
+        if (mounted) setNotice("We could not confirm the PayPal payment yet. Please contact the advertising desk before paying again.");
+      })
+      .finally(() => {
+        if (!mounted) return;
+        params.delete("token");
+        params.delete("PayerID");
+        const query = params.toString();
+        window.history.replaceState({}, "", window.location.pathname + (query ? "?" + query : "") + window.location.hash);
+      });
+    return () => { mounted = false; };
+  }, []);
 
   const handleCheckout = async (e) => {
     e.preventDefault();
@@ -99,22 +127,27 @@ export default function MagazineAds() {
     setError("");
     const origin = window.location.origin;
 
-    const res = await base44.functions.invoke("createAdCheckout", {
-      position: selected.position,
-      advertiser_name: form.advertiser_name,
-      advertiser_email: form.advertiser_email,
-      ad_headline: form.ad_headline,
-      ad_link: form.ad_link,
-      slot_label: selected.label,
-      price_monthly: selected.price,
-      success_url: `${origin}/magazine?ad_success=1`,
-      cancel_url: `${origin}/magazine?ad_cancelled=1`,
-    });
+    try {
+      const res = await base44.functions.invoke("createAdCheckout", {
+        position: selected.position,
+        advertiser_name: form.advertiser_name,
+        advertiser_email: form.advertiser_email,
+        ad_headline: form.ad_headline,
+        ad_link: form.ad_link,
+        slot_label: selected.label,
+        price_monthly: selected.price,
+        success_url: origin + "/magazine?ad_success=1",
+        cancel_url: origin + "/magazine?ad_cancelled=1",
+      });
 
-    if (res.data?.url) {
-      window.location.href = res.data.url;
-    } else {
-      setError(res.data?.error || "Something went wrong. Please try again.");
+      if (res.data?.url) {
+        window.location.assign(res.data.url);
+        return;
+      }
+      setError(res.data?.error || "PayPal checkout could not be started. Please try again.");
+    } catch (checkoutError) {
+      setError("PayPal checkout is temporarily unavailable. Please check the PayPal setup or contact the advertising desk.");
+    } finally {
       setLoading(false);
     }
   };
@@ -166,7 +199,7 @@ export default function MagazineAds() {
           })}
         </div>
 
-        {/* Stripe Checkout form */}
+        {/* PayPal subscription checkout form */}
         <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="mx-auto max-w-2xl rounded-2xl border border-slate-700/60 bg-slate-900/60 p-8 sm:p-10">
           <div className="mb-6 flex items-center gap-3">
@@ -180,6 +213,8 @@ export default function MagazineAds() {
               </p>
             </div>
           </div>
+
+          {notice && <p role="status" className="mb-4 rounded-xl border border-blue-400/20 bg-blue-400/10 p-3 text-sm text-blue-100">{notice}</p>}
 
           <form onSubmit={handleCheckout} className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">
@@ -198,11 +233,11 @@ export default function MagazineAds() {
             <Button type="submit" disabled={!selected || loading || !form.advertiser_name || !form.advertiser_email}
               className="w-full rounded-full h-12 gap-2 bg-blue-600 hover:bg-blue-500 text-white border-0 shadow-lg shadow-blue-600/20">
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <CreditCard className="h-4 w-4" />}
-              {loading ? "Redirecting to Stripe..." : selected ? `Pay $${selected.price.toLocaleString()}${selected.unit} via Stripe` : "Select a slot to continue"}
+              {loading ? "Redirecting to PayPal..." : selected ? `Continue with PayPal — ${selected.price.toLocaleString()}${selected.unit}` : "Select a slot to continue"}
             </Button>
 
             <p className="text-center text-xs text-slate-600">
-              Secure payment via Stripe · Monthly subscription · Cancel any time
+              Secure PayPal checkout · One-time payment for the displayed placement period
             </p>
           </form>
         </motion.div>

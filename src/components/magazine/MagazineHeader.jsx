@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Search, ChevronDown, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MagazineLogo from "@/components/magazine/MagazineLogo";
-import NewsTicker from "@/components/magazine/NewsTicker";
 
 const CATEGORIES = [
   { label: "Finance", to: "/magazine/archive?cat=finance" },
@@ -39,7 +38,6 @@ export default function MagazineHeader() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-800/80 bg-[#070D18]/95 backdrop-blur-xl">
-      <NewsTicker />
 
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 lg:px-8 gap-4">
         {/* Logo */}

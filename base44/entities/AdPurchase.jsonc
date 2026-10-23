@@ -44,6 +44,22 @@
     },
     "campaign_start": {
       "type": "string"
+    },
+    "payment_provider": {
+      "type": "string",
+      "enum": [
+        "stripe",
+        "paypal"
+      ]
+    },
+    "paypal_order_id": {
+      "type": "string"
+    },
+    "paypal_capture_id": {
+      "type": "string"
+    },
+    "paypal_order_status": {
+      "type": "string"
     }
   },
   "required": [

@@ -1,47 +1,60 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, DollarSign } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
+
+const CATEGORY_IMAGES = {
+  finance: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80",
+  economy: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80",
+  insurance: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1600&q=80",
+  travel: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600&q=80",
+  consulting: "https://images.unsplash.com/photo-1553484771-047a44eee27b?w=1600&q=80",
+  retirement: "https://images.unsplash.com/photo-1559526324-593bc0738d25?w=1600&q=80",
+};
+
+const FALLBACK_ARTICLE = {
+  slug: "personal-finance-101",
+  section: "Finance",
+  category: "finance",
+  title: "Building Wealth on Any Income: The Framework That Actually Works",
+  intro: "A clear editorial framework for making financial decisions with a long-term view.",
+};
 
 export default function FeaturedArticle() {
+  const [article, setArticle] = useState(null);
+
+  useEffect(() => {
+    let mounted = true;
+    base44.entities.Article.filter({ is_published: true }, "-published_date", 1)
+      .then((items) => {
+        if (mounted && items && items.length) setArticle(items[0]);
+      })
+      .catch(() => {});
+    return () => { mounted = false; };
+  }, []);
+
+  const story = article || FALLBACK_ARTICLE;
+  const category = (story.category || "finance").toLowerCase();
+  const image = story.image_url || CATEGORY_IMAGES[category] || CATEGORY_IMAGES.finance;
+  const section = story.section || category;
+  const slug = story.slug || story.id || FALLBACK_ARTICLE.slug;
+
   return (
     <section id="featured" className="px-5 py-16 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="grid overflow-hidden rounded-2xl border border-slate-700/60 bg-slate-900/60 shadow-2xl shadow-black/30 lg:grid-cols-[0.9fr_1.1fr]">
-          {/* Left panel */}
-          <div className="relative bg-gradient-to-br from-blue-600 to-blue-800 p-8 sm:p-12 overflow-hidden">
-            <div className="absolute inset-0 opacity-10"
-              style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
-            <div className="relative z-10">
-              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80">
-                Cover Story
-              </div>
-              <DollarSign className="mt-12 h-10 w-10 text-white/60" />
-              <p className="mt-6 text-xs uppercase tracking-[0.32em] text-white/60">Finance</p>
-              <h2 className="mt-3 font-display text-4xl leading-tight tracking-[-0.04em] text-white sm:text-5xl">
-                Building wealth on any income: the framework that actually works
-              </h2>
+        <Link to={"/magazine/article/" + slug}
+          className="group grid overflow-hidden rounded-2xl border border-slate-700/70 bg-slate-900/70 transition-colors hover:border-blue-500/50 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="min-h-64 overflow-hidden bg-slate-900">
+            <img src={image} alt={story.title || "Featured financial article"} loading="lazy" className="h-full min-h-64 w-full object-cover transition-transform duration-300 group-hover:scale-[1.01]" />
+          </div>
+          <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-12">
+            <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.28em] text-blue-300">Featured story · {section}</p>
+            <h2 className="font-display text-3xl font-semibold leading-tight tracking-[-0.04em] text-white sm:text-4xl">{story.title}</h2>
+            <div className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-300 transition-colors group-hover:text-blue-200">
+              Read story <ArrowRight className="h-4 w-4" />
             </div>
           </div>
-          {/* Right panel */}
-          <div className="p-8 sm:p-12">
-            <div className="mb-7 flex flex-wrap gap-2">
-              {["Personal Finance", "Wealth Building", "Investing", "Strategy"].map((tag) => (
-                <span key={tag} className="rounded-full border border-slate-700 bg-slate-800/60 px-3 py-1 text-xs text-slate-400">{tag}</span>
-              ))}
-            </div>
-            <p className="text-xl leading-9 text-white">
-              Five principles that separate those who accumulate wealth from those who don't — regardless of starting salary, background, or access to capital.
-            </p>
-            <p className="mt-5 leading-7 text-slate-400">
-              Our editors trace how ordinary earners build extraordinary balance sheets by mastering a simple but ruthless framework: spend less than you earn, invest the rest systematically, and never let tax inefficiency erode compound growth.
-            </p>
-            <Link to="/magazine/article/personal-finance-101" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors">
-              Read the full story <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </motion.div>
+        </Link>
       </div>
     </section>
   );

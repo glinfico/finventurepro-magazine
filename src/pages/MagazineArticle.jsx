@@ -315,6 +315,9 @@ export default function MagazineArticle() {
     icon: categoryIcon[dbArticle.category] || BarChart3,
     title: dbArticle.title,
     subtitle: dbArticle.subtitle,
+    image_url: dbArticle.image_url,
+    video_url: dbArticle.video_url,
+    sources: (() => { try { return JSON.parse(dbArticle.sources_json || "[]"); } catch { return []; } })(),
     readTime: dbArticle.read_time,
     date: dbArticle.published_date,
     author: dbArticle.author,
@@ -455,6 +458,23 @@ export default function MagazineArticle() {
               </motion.div>
             ))}
           </div>
+
+          {/* Sources & further reading */}
+          {Array.isArray(article.sources) && article.sources.some((source) => source?.url && /^https?:\/\//i.test(source.url)) && (
+            <section className="mt-12 rounded-2xl border border-slate-700/60 bg-slate-900/50 p-6">
+              <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-blue-300">Sources &amp; further reading</h2>
+              <ul className="mt-4 space-y-3">
+                {article.sources.filter((source) => source?.url && /^https?:\/\//i.test(source.url)).map((source, index) => (
+                  <li key={source.url + index}>
+                    <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-slate-200 underline decoration-blue-500/50 underline-offset-4 hover:text-blue-300">
+                      {source.title || source.publisher || source.url}
+                    </a>
+                    {source.publisher && <span className="ml-2 text-xs text-slate-500">{source.publisher}</span>}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Article-level video embed (after body) */}
           {article.video_url && (
